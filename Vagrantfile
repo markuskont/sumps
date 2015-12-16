@@ -69,13 +69,6 @@ sudo update-rc.d -f suricata remove
 wget -q http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
 tar -xzf emerging.rules.tar.gz -C /vagrant/suricata/rulesets/et/
 
-sudo apt-get install -y oinkmaster
-sudo cat << EOF >> /etc/oinkmaster.conf
-url = http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
-EOF
-
-sudo oinkmaster -C /etc/oinkmaster.conf -o /etc/suricata/rules
-
 SCRIPT
 
 
