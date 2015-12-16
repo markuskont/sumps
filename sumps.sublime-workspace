@@ -144,15 +144,29 @@
 			"file": "Vagrantfile",
 			"settings":
 			{
-				"buffer_size": 2467,
+				"buffer_size": 2482,
 				"line_ending": "Unix"
 			}
 		},
 		{
+			"contents": "{\n  \"template\" : \"bro-*\",\n  \"settings\" : {\n      \"number_of_shards\" : 2,\n      \"number_of_replicas\": 0,\n      \"index.refresh_interval\" : \"30s\"\n  }\n}",
 			"file": "config/elasticsearch-templates/bro.json",
+			"file_size": 148,
+			"file_write_time": 130947481055911126,
 			"settings":
 			{
 				"buffer_size": 148,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "curl -XPUT localhost:9200/_template/netflow5 -d '\n{\n  \"template\" : \"netflow5-*\",\n  \"settings\" : {\n      \"number_of_shards\" : 2,\n      \"number_of_replicas\": 0,\n      \"index.refresh_interval\" : \"60s\"\n  },\n  \"mappings\" : {\n    \"_default_\" : {\n      \"_all\" : {\"enabled\" : false},\n      \"properties\" : {\n        \"@version\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n        \"@timestamp\": { \"index\": \"analyzed\", \"type\": \"date\" },\n        \"netflow\": {\n          \"dynamic\": true,\n          \"type\": \"object\",\n          \"properties\": {\n            \"version\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"flow_seq_num\": { \"index\": \"not_analyzed\", \"type\": \"long\" },\n            \"engine_type\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"engine_id\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"sampling_algorithm\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"sampling_interval\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"flow_records\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"ipv4_src_addr\": { \"index\": \"analyzed\", \"type\": \"ip\" },\n            \"ipv4_dst_addr\": { \"index\": \"analyzed\", \"type\": \"ip\" },\n            \"ipv4_next_hop\": { \"index\": \"analyzed\", \"type\": \"ip\" },\n            \"input_snmp\": { \"index\": \"not_analyzed\", \"type\": \"long\" },\n            \"output_snmp\": { \"index\": \"not_analyzed\", \"type\": \"long\" },\n            \"in_pkts\": { \"index\": \"analyzed\", \"type\": \"long\" },\n            \"in_bytes\": { \"index\": \"analyzed\", \"type\": \"long\" },\n            \"first_switched\": { \"index\": \"not_analyzed\", \"type\": \"date\" },\n            \"last_switched\": { \"index\": \"not_analyzed\", \"type\": \"date\" },\n            \"l4_src_port\": { \"index\": \"analyzed\", \"type\": \"long\" },\n            \"l4_dst_port\": { \"index\": \"analyzed\", \"type\": \"long\" }, \n            \"tcp_flags\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"protocol\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"src_tos\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"src_as\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"dst_as\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"src_mask\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"dst_mask\": { \"index\": \"analyzed\", \"type\": \"integer\" }\n          }\n        }\n      }\n    }\n  }\n}\n'",
+			"file": "config/elasticsearch-templates/example-netfow5.json",
+			"file_size": 2331,
+			"file_write_time": 130947481419911118,
+			"settings":
+			{
+				"buffer_size": 2331,
 				"line_ending": "Unix"
 			}
 		}
@@ -198,9 +212,7 @@
 	},
 	"expanded_folders":
 	[
-		"/home/markus/Desktop/repos/sumps",
-		"/home/markus/Desktop/repos/sumps/config",
-		"/home/markus/Desktop/repos/sumps/config/elasticsearch-templates"
+		"/home/markus/Desktop/repos/sumps"
 	],
 	"file_history":
 	[
@@ -394,7 +406,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -425,7 +437,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -434,15 +446,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2467,
+						"buffer_size": 2482,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								551,
-								551
+								589,
+								589
 							]
 						],
 						"settings":
@@ -457,7 +469,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -487,7 +499,39 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "config/elasticsearch-templates/example-netfow5.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2331,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2331,
+								2331
+							]
+						],
+						"settings":
+						{
+							"WordCountShouldRun": true,
+							"WordCountSyntax": "plain text",
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -556,7 +600,7 @@
 		[
 			[
 				"",
-				"~/Desktop/repos/d3-js-something/log-processing.sublime-project"
+				"~/ownCloud/Exfil/Detection/research.sublime-project"
 			]
 		],
 		"width": 285.0

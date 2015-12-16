@@ -58,6 +58,27 @@ sudo /opt/bro/bin/broctl install
 sudo /opt/bro/bin/broctl check
 SCRIPT
 
+$suricata = <<SCRIPT
+sudo add-apt-repository -y ppa:oisf/suricata-beta
+sudo apt-get update
+sudo apt-get -y install suricata
+sudo service suricata status
+sudo service suricata stop
+sudo update-rc.d -f suricata remove
+
+wget -q http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
+tar -xzf emerging.rules.tar.gz -C /vagrant/suricata/rulesets/et/
+
+sudo apt-get install -y oinkmaster
+sudo cat << EOF >> /etc/oinkmaster.conf
+url = http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
+EOF
+
+sudo oinkmaster -C /etc/oinkmaster.conf -o /etc/suricata/rules
+
+SCRIPT
+
+
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.provider :virtualbox do |vb|
