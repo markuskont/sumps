@@ -1,0 +1,13 @@
+# Igrnorance is bliss...
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Sublime project files
+*.sublime-project
+*.sublime-workspace
+
+./vagrant/**/*
+tmp/**/*
+node_modules/**/*

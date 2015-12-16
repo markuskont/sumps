@@ -1,0 +1,586 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"file",
+				"filepath"
+			],
+			[
+				"tail",
+				"tailFile"
+			],
+			[
+				"fi",
+				"files"
+			],
+			[
+				"in",
+				"index"
+			],
+			[
+				"bul",
+				"bulksize"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"pr",
+				"process"
+			],
+			[
+				"es",
+				"es_load_data"
+			],
+			[
+				"pos",
+				"postgres_passwd"
+			],
+			[
+				"rsys",
+				"rsyslog_client_orion"
+			],
+			[
+				"smt",
+				"smtp_server"
+			],
+			[
+				"gro",
+				"groupname"
+			],
+			[
+				"int",
+				"interface_ip"
+			],
+			[
+				"vhos",
+				"vhosts_system_root"
+			],
+			[
+				"ex",
+				"ext_interface"
+			],
+			[
+				"ce",
+				"certfile"
+			],
+			[
+				"ssl",
+				"ssl_key"
+			],
+			[
+				"vhost",
+				"vhosts_system_root"
+			],
+			[
+				"key",
+				"key"
+			],
+			[
+				"cer",
+				"certdir"
+			],
+			[
+				"vh",
+				"vhost_fqdn"
+			],
+			[
+				"php",
+				"php5_6_vhosts"
+			],
+			[
+				"vo",
+				"vhost_root"
+			],
+			[
+				"gi",
+				"gitlab_job_suffix"
+			],
+			[
+				"git",
+				"gitlab_backup_path"
+			],
+			[
+				"du",
+				"dump_dir"
+			],
+			[
+				"po",
+				"postgresql_backup_dir"
+			],
+			[
+				"postgre",
+				"postgresql_portmap"
+			],
+			[
+				"bac",
+				"bacula_job_deploy_pg_dump"
+			],
+			[
+				"bacu",
+				"bacula_job_deploy"
+			],
+			[
+				"th",
+				"thread_hack"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": ".gitignore.",
+			"settings":
+			{
+				"buffer_size": 194,
+				"line_ending": "Unix",
+				"name": "# Igrnorance is bliss..."
+			}
+		},
+		{
+			"file": "Vagrantfile",
+			"settings":
+			{
+				"buffer_size": 2467,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config/elasticsearch-templates/bro.json",
+			"settings":
+			{
+				"buffer_size": 148,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 109.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package co",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 363.0
+	},
+	"console":
+	{
+		"height": 109.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/markus/Desktop/repos/sumps",
+		"/home/markus/Desktop/repos/sumps/config",
+		"/home/markus/Desktop/repos/sumps/config/elasticsearch-templates"
+	],
+	"file_history":
+	[
+		"/home/markus/Desktop/datasets/mappings/bro.json",
+		"/home/markus/Desktop/datasets/parse.js",
+		"/home/markus/Desktop/datasets/Vagrantfile",
+		"/home/markus/Desktop/datasets/.gitignore",
+		"/home/markus/Desktop/datasets/netflow-es-template.json",
+		"/home/markus/Desktop/repos/d3-js-something/Vagrantfile",
+		"/home/markus/Desktop/repos/d3-js-something/README.md",
+		"/home/markus/Desktop/repos/d3-js-something/js/connection.js",
+		"/home/markus/Desktop/repos/d3-js-something/js/donut.js",
+		"/home/markus/Desktop/repos/gist/4b014ba3abcc07a8c5c9/json2elastic.js",
+		"/home/markus/Desktop/repos/d3-js-something/js/dendrogram.js",
+		"/home/markus/Desktop/repos/d3-js-something/js/main.js",
+		"/home/markus/Desktop/repos/d3-js-something/css/style.css",
+		"/home/markus/Desktop/repos/d3-js-something/index.html",
+		"/home/markus/Desktop/repos/d3-js-something/js/chart.js",
+		"/home/markus/Desktop/repos/d3-js-something/js/app.js",
+		"/home/markus/Desktop/repos/d3-js-something/js/boilerplate.js",
+		"/home/markus/Desktop/repos/d3-js-something/lib/javascript/require.js",
+		"/home/markus/Desktop/repos/d3-js-something/js/test.js",
+		"/home/markus/Desktop/repos/kirka/web/lib/test.js",
+		"/home/markus/Desktop/repos/kirka/web/style.css",
+		"/home/markus/Desktop/repos/kirka/web/index.html",
+		"/home/markus/Desktop/repos/kirka/Vagrantfile",
+		"/home/markus/Desktop/repos/kirka/.gitignore",
+		"/home/markus/Desktop/repos/kirka/index.html",
+		"/home/markus/ownCloud/Workspace/kool/PhD/juhtimispsy/case2/paper.tex",
+		"/home/markus/ownCloud/Workspace/kool/PhD/Philosophy/paper.tex",
+		"/home/markus/ownCloud/Workspace/kool/PhD/juhtimispsy/case1/paper.tex",
+		"/home/markus/Desktop/crap/ls/reverse.pl",
+		"/home/markus/Desktop/crap/ls/reverse6.pl",
+		"/home/markus/Desktop/repos/tut/juhtimispsy/case2/paper.tex",
+		"/home/markus/Desktop/repos/tut/juhtimispsy/case1/paper.tex",
+		"/home/markus/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/markus/ownCloud/Workspace/kool/PhD/Philosophy/custom_article.cls",
+		"/home/markus/ownCloud/Workspace/kool/PhD/Philosophy/db.bib",
+		"/home/markus/ownCloud/Exfil/ip6eva3.tex",
+		"/home/markus/ownCloud/Exfil/llncs.cls",
+		"/home/markus/Desktop/kool/PhD/Philosophy/custom_article.cls",
+		"/home/markus/Desktop/kool/PhD/Philosophy/notes.txt",
+		"/home/markus/Desktop/kool/PhD/Philosophy/db.bib",
+		"/home/markus/Desktop/kool/PhD/Philosophy/paper.tex",
+		"/home/markus/Desktop/kool/PhD/template/custom_article.cls",
+		"/home/markus/Desktop/kool/PhD/template/paper.tex",
+		"/home/markus/Desktop/presentation/ICRW/prese.tex",
+		"/home/markus/Desktop/presentation/CERT_abuse/outline.txt",
+		"/home/markus/Desktop/presentation/CERT_abuse/prese.tex",
+		"/home/markus/Desktop/kool/PhD/template/custom_article.clf",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/manifests/backup.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/manifests/bacula.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/catalog.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/client.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/fileset.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/job.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/jobdef-default.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/jobdef.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/messages.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/pool.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/schedule-default.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/schedule-incremental.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir/storage.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/fd/director.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/fd/messages.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/bconsole.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/dir.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/fd.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/sd.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/templates/tls.erb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/manifests/fd.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/manifests/params.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/manifests/director/client.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/manifests/director/storage.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/manifests/logging.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/webdk.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/haudi.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/manifests/monitoring.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/manifests/site_spin_pirita.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/environment/devel.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/environment/offsite_ruuter.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/kodiak.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/begraven.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/environment/s6le_production.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/environment/production.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/environment/staging.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/manifests/puppetdb.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/common.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/manifests/init.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/garm3.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/corvus.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/hobbit1.spin.ee.yaml",
+		"/home/markus/Desktop/crap/presentation/NTAWS/prese.tex",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/hobbit2.spin.ee.yaml",
+		"/home/markus/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/manifests/web.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/backup.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/manifests/users.pp",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/orion.spin.sise.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/lib/facter/postgresql_portmap.rb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/users.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/gemini.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/kepler.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/pleiades2.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/pleiades3.spin.sise.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/ocs.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/lib/facter/gitlab_installed.rb",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/lupus2.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/lupus1.spin.sise.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/ariel.spin.ee.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/environment/kah.spin.sise.yaml",
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hiera.yaml",
+		"/home/markus/Desktop/scripts/extract_v6.sh",
+		"/home/markus/Desktop/netflow.json",
+		"/home/markus/Desktop/elasticsearch/mappings.json",
+		"/home/markus/Desktop/scripts/regex.re",
+		"/home/markus/Desktop/central_logging/powershell/commands.ps1"
+	],
+	"find":
+	{
+		"height": 31.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"conn",
+			"type",
+			"2ela",
+			"server",
+			"elasticsearch",
+			"es",
+			"elasticsearch",
+			"client",
+			",\n",
+			"bro",
+			"usepackage",
+			"\n\\",
+			"^\\s{4}",
+			"rsyslog_client_orion",
+			"                                ",
+			"postgresql_portmap",
+			"\\$runbefore",
+			"\\$runafter",
+			"postgresql",
+			"postgresql_clusters",
+			"devel",
+			"^\\s+\\d{3}\\s{3}",
+			"^\\s+\\d+\\s+",
+			"\\s+(\\S+)"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"tail",
+			"frontend",
+			"es",
+			"elasticsearch",
+			"es",
+			"elasticsearch",
+			"snort",
+			"RequirePackage",
+			"",
+			"rsyslog_client",
+			"gitlab_config",
+			"$postgresql_runbefore",
+			"$postgresql_runafter",
+			"gitlab",
+			"postgresql_portmap",
+			"staging",
+			"",
+			"(?<bro_smtp_$1>\\S+)\\t"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": ".gitignore.",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 194,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								167,
+								167
+							]
+						],
+						"settings":
+						{
+							"WordCountShouldRun": true,
+							"WordCountSyntax": "plain text",
+							"auto_name": "# Igrnorance is bliss...",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Vagrantfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2467,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								551,
+								551
+							]
+						],
+						"settings":
+						{
+							"WordCountShouldRun": true,
+							"WordCountSyntax": "plain text",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "config/elasticsearch-templates/bro.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 148,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								148,
+								148
+							]
+						],
+						"settings":
+						{
+							"WordCountShouldRun": true,
+							"WordCountSyntax": "plain text",
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 112.0
+	},
+	"pinned_build_system": "",
+	"project": "sumps.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 375.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Desktop/repos/d3-js-something/log-processing.sublime-project"
+			]
+		],
+		"width": 285.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 160.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
