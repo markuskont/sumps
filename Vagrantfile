@@ -23,7 +23,7 @@ if [ -z `apt-cache policy elasticsearch | grep (none)` ]; then
   sudo /usr/share/elasticsearch/bin/plugin -install mobz/elasticsearch-head
 fi
 
-curl -XPUT localhost:9200/_template/bro -d @/vagrant/mappings/bro.json
+curl -XPUT localhost:9200/_template/bro -d @/vagrant/elasticsearch/templates/bro.json
 
 SCRIPT
 
