@@ -1,6 +1,7 @@
 var fs = require('fs');
 var http = require('http');
 var LineByLineReader = require('line-by-line');
+var merge = require('merge');
 
 if (process.argv.length <= 2) {
   console.log("Usage: " + __filename + " path/to/directory");
@@ -46,6 +47,10 @@ function parseSignatureOpts(opts) {
     // results in empty key
     if (key.length) {
       // build array if same key exists multiple times (e.g. pattern fields)
+      if (!value) {
+//        console.log(json['sid'])
+        console.log(key + ':' + value)
+      }
       if (key in json) {
         //// if array exists then push new value into it
         //if(typeof array != "undefined" && array != null && array.length > 0){
@@ -56,7 +61,8 @@ function parseSignatureOpts(opts) {
         //  array.push(json[key]);
         //  json[key] = array;
         //}
-        // console.log(array);
+        //console.log(key);
+        //console.log(value);
       } else {
         json[key] = value;
       }
@@ -64,6 +70,19 @@ function parseSignatureOpts(opts) {
     //console.log(elements[i].split(':'));
   }
   return json;
+}
+
+/**
+ * Overwrites obj1's values with obj2's and adds obj2's if non existent in obj1
+ * @param obj1
+ * @param obj2
+ * @returns obj3 a new object based on obj1 and obj2
+ */
+function merge_options(obj1,obj2){
+    var obj3 = {};
+    for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
+    for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
+    return obj3;
 }
 
 function readFile(path,fileName) {
@@ -85,10 +104,11 @@ function readFile(path,fileName) {
         "src_addr": line.match(regex)[3],
         "src_port": line.match(regex)[4],
         "dst_addr": line.match(regex)[5],
-        "dst_port": line.match(regex)[6],
-        "opts": opts
+        "dst_port": line.match(regex)[6]
+        //"opts": opts
       }
-      console.log(JSON.stringify(signature));
+      var merged = merge_options(signature, opts)
+      console.log(JSON.stringify(merged));
     }
   });
 }
