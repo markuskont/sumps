@@ -19,6 +19,8 @@ if [ -z `apt-cache policy elasticsearch | grep (none)` ]; then
   
   sudo service elasticsearch stop
   sudo service elasticsearch start
+
+  sleep 10
   
   sudo /usr/share/elasticsearch/bin/plugin -install mobz/elasticsearch-head
 fi
@@ -30,6 +32,10 @@ SCRIPT
 $packages = <<SCRIPT
 apt-get update
 apt-get install -y nodejs npm htop < /dev/null
+
+cd /vagrant
+
+npm install byline http
 SCRIPT
 
 $bro = <<SCRIPT
@@ -81,12 +87,14 @@ Vagrant.configure(2) do |config|
   config.vm.define "es" do |es|
     es.vm.hostname = "es"
     es.vm.network "private_network", 
-      ip: "192.168.56.15"
+      ip: "192.168.56.20"
     es.vm.provision "shell",
       inline: $elasticsearch
     es.vm.provision "shell",
       inline: $packages
     es.vm.provision "shell",
       inline: $bro
+    es.vm.provision "shell",
+      inline: $suricata
   end
 end
