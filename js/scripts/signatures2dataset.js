@@ -78,7 +78,7 @@ function getValue(string){
   if (separator != -1) {
     next = separator + 1;
     var value = string.substring(next,string.length).trim();
-    return value;
+    return value.replace(/^"(.+(?="$))"$/, '$1');
   } else {
     // JSON value field should be boolean if no string exists
     return true
