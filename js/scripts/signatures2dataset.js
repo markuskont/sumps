@@ -30,46 +30,13 @@ function filenameEndsWith(str,suffix) {
   return false;
 }
 
-function parseSignatureOpts(opts) {
-  // remove leading whitespace before semicolon, pretty common in ruleset
-  var normalized = opts.replace(/; /g, ";")
-  // split 
-  var elements = normalized.split(';');
-  var json = {};
-
-  // split array elements into key-value pairs
-  // return boolean if key has no value
-  for (i=0; i < elements.length; ++i) {
-    var pair = elements[i].split(':');
-    key = pair[0];
-    value = pair[1];
-    // last element is still delimited with semicolon
-    // results in empty key
-    if (key.length) {
-      // build array if same key exists multiple times (e.g. pattern fields)
-      if (!value) {
-        json[key] = true;
-      }
-      if (key in json) {
-        //// if array exists then push new value into it
-        //if(typeof array != "undefined" && array != null && array.length > 0){
-        //  array.push(value);
-        //} else {
-        //  // else construct it and add initial values
-        //  var array = [];
-        //  array.push(json[key]);
-        //  json[key] = array;
-        //}
-        //console.log(key);
-        //console.log(value);
-      } else {
-        json[key] = value;
-      }
-    }
-    //console.log(elements[i].split(':'));
-  }
-  return json;
-}
+/**
+ * Parses string containing key-value pair into value
+ * prunes the returned string from leading whitespace
+ * Removes any double quotes which encapsulate the string
+ * If separator can not be found, then processed string is assumed key and boolean 1 is returned
+ * @param string
+ */
 function getValue(string){
 
   var separator = string.indexOf(':');
@@ -80,9 +47,46 @@ function getValue(string){
     var value = string.substring(next,string.length).trim();
     return value.replace(/^"(.+(?="$))"$/, '$1');
   } else {
-    // JSON value field should be boolean if no string exists
     return true
   }
+}
+
+/**
+ * Take object and check type
+ * Convert to array if string, else add value
+ * String checking disabled for the time being
+ * @param obj
+ * @param value
+ * @returns array with value added to it
+ */
+function addValue(obj,value) {
+  if (isArray(obj)) {
+    console.log('array');
+    var arr = obj.push(value);
+    return arr;
+  } else {
+    console.log('not array');
+    var arr = [];
+    arr.push(obj);
+    arr.push(value);
+    //console.log(arr);
+    return arr;
+  }
+}
+
+/**
+ * https://www.whatsnoodle.com/check-variable-is-array-in-javascript/
+ */
+function isArray(check_var) {
+    return(Object.prototype.toString.call( check_var ) === '[object Array]');
+}
+
+/**
+ * http://stackoverflow.com/questions/4059147/check-if-a-variable-is-a-string
+ * http://perfectionkills.com/instanceof-considered-harmful-or-how-to-write-a-robust-isarray/
+ */
+function isString(check_var) {
+    return(Object.prototype.toString.call( check_var ) === '[object String]');
 }
 
 function parseSequence(opts,stream) {
@@ -90,56 +94,44 @@ function parseSequence(opts,stream) {
   json = {};
 
   breakpoint = 0;
-  //stream.pause();
+  stream.pause();
   for (var i = 0; i < opts.length; i++) {
-    // var c = opts.charAt(i);
     if (/;/.test(opts[i])){
       // debug
       var pair = opts.substring(breakpoint, i);
-//      console.log('-------------------------');
-//      console.log(pair.length);
-//      console.log(pair.trim());
-//
-//      key = pair.split(':')[0];
-//      console.log(key);
+
       key = pair.split(':')[0].trim();
       value = getValue(pair);
+      // handle duplicate keys in rules
+      // for example, content field can be called multiple times
+      if (json[key]){
+        //console.log(key + ':' + value);
+        //console.log(value);
+        //console.log(json[key]);
+        var oldvalue = json[key];
+        //var processed = [];
+        var processed = addValue(oldvalue, value);
+        console.log('key:');
+        console.log(key);
+        console.log('oldvalue:');
+        console.log(oldvalue);
+        console.log('newvalue:');
+        console.log(value);
+        console.log('processed:');
+        console.log(processed);
+        json[key] = processed;
+      } else {
+        json[key] = value;
+      }
       // console.log(key + ':' + value);
-      json[key] = value;
-      
-      //for (var s = 0; s < pair.length; s++){
-      //  var c = pair.charAt(s);
-      //  if (/:/.test(c)){
-      //    key = opts.substring(breakpoint,s);
-      //    value = opts.substring(s+1, pair.length);
-      //    console.log(key);
-      //    //console.log(value);
-      //    break;
-      //  }
-      //}
-      
-
-      // proceeding semicolon/colon can be preceded by whitespace
-      // does not play well with key-value pairs
       breakpoint = i + 1;
-      //next = i + 1;
-      //if (opts[next]) {
-      //  breakpoint = i + 2;
-      //} else {
-      //  breakpoint = next;
-      //}
     }
     // console.log(c);
   }
-  //stream.resume();
+  stream.resume();
   //console.log(JSON.stringify(json));
   return json;
-
 }
-
-//function isBlank(value) {
-//  return $.trim(value);
-//}
 
 /**
  * Overwrites obj1's values with obj2's and adds obj2's if non existent in obj1
@@ -162,9 +154,7 @@ function readFile(path,fileName) {
   stream.on('line', function(line) {
     if (line.match(regex)!=null) {
 
-      //var opts = line.match(regex)[7];
       var opts = parseSequence(line.match(regex)[7], stream);
-      // console.log(opts);
 
       var signature = {
         "file": fileName,
@@ -174,7 +164,6 @@ function readFile(path,fileName) {
         "src_port": line.match(regex)[4],
         "dst_addr": line.match(regex)[5],
         "dst_port": line.match(regex)[6]
-        //"opts": opts
       }
       // I assume that keys in both hashes are distinct
       var merged = merge_options(signature, opts)
