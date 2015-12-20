@@ -26,6 +26,7 @@ if [ -z `apt-cache policy elasticsearch | grep (none)` ]; then
 fi
 
 curl -XPUT localhost:9200/_template/bro -d @/vagrant/elasticsearch/templates/bro.json
+curl -XPUT localhost:9200/_template/ruleset -d @/vagrant/elasticsearch/templates/ruleset.json
 
 SCRIPT
 

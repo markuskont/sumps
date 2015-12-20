@@ -4,20 +4,52 @@
 		"selected_items":
 		[
 			[
+				"ds",
+				"dst_port"
+			],
+			[
+				"sr",
+				"src_port"
+			],
+			[
+				"pr",
+				"proto	Prototype"
+			],
+			[
+				"re",
+				"regex"
+			],
+			[
+				"rege",
+				"regex"
+			],
+			[
+				"line",
+				"line"
+			],
+			[
+				"fi",
+				"fileName"
+			],
+			[
 				"file",
-				"filepath"
+				"fileName"
+			],
+			[
+				"str",
+				"strEndsWith"
+			],
+			[
+				"in",
+				"inline"
+			],
+			[
+				"sh",
+				"shell"
 			],
 			[
 				"tail",
 				"tailFile"
-			],
-			[
-				"fi",
-				"files"
-			],
-			[
-				"in",
-				"index"
 			],
 			[
 				"bul",
@@ -26,10 +58,6 @@
 			[
 				"fu",
 				"function"
-			],
-			[
-				"pr",
-				"process"
 			],
 			[
 				"es",
@@ -135,7 +163,7 @@
 			"file": ".gitignore.",
 			"settings":
 			{
-				"buffer_size": 194,
+				"buffer_size": 217,
 				"line_ending": "Unix",
 				"name": "# Igrnorance is bliss..."
 			}
@@ -144,7 +172,24 @@
 			"file": "Vagrantfile",
 			"settings":
 			{
-				"buffer_size": 2482,
+				"buffer_size": 2954,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/signatures2dataset.js",
+			"settings":
+			{
+				"buffer_size": 1595,
+				"line_ending": "Unix",
+				"name": "var fs = require('fs');"
+			}
+		},
+		{
+			"file": "/home/markus/Desktop/datasets/examples/json2elastic.js",
+			"settings":
+			{
+				"buffer_size": 5082,
 				"line_ending": "Unix"
 			}
 		},
@@ -212,7 +257,8 @@
 	},
 	"expanded_folders":
 	[
-		"/home/markus/Desktop/repos/sumps"
+		"/home/markus/Desktop/repos/sumps",
+		"/home/markus/Desktop/repos/sumps/js"
 	],
 	"file_history":
 	[
@@ -406,7 +452,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -415,20 +461,19 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 194,
+						"buffer_size": 217,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								167,
-								167
+								212,
+								212
 							]
 						],
 						"settings":
 						{
-							"WordCountShouldRun": true,
 							"WordCountSyntax": "plain text",
 							"auto_name": "# Igrnorance is bliss...",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
@@ -446,34 +491,99 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2482,
+						"buffer_size": 2954,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								589,
-								589
+								1090,
+								1090
+							]
+						],
+						"settings":
+						{
+							"WordCountShouldRun": true,
+							"WordCountSyntax": "ruby",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 64.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "js/signatures2dataset.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1595,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								684,
+								692
 							]
 						],
 						"settings":
 						{
 							"WordCountShouldRun": true,
 							"WordCountSyntax": "plain text",
-							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"auto_name": "var fs = require('fs');",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 102.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/markus/Desktop/datasets/examples/json2elastic.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5082,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1115,
+								1115
+							]
+						],
+						"settings":
+						{
+							"WordCountShouldRun": false,
+							"WordCountSyntax": "javascript",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 918.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 4,
 					"file": "config/elasticsearch-templates/bro.json",
 					"semi_transient": false,
 					"settings":
@@ -491,7 +601,6 @@
 						],
 						"settings":
 						{
-							"WordCountShouldRun": true,
 							"WordCountSyntax": "plain text",
 							"syntax": "Packages/JavaScript/JSON.tmLanguage"
 						},
@@ -499,11 +608,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "config/elasticsearch-templates/example-netfow5.json",
 					"semi_transient": false,
 					"settings":
@@ -521,7 +630,6 @@
 						],
 						"settings":
 						{
-							"WordCountShouldRun": true,
 							"WordCountSyntax": "plain text",
 							"syntax": "Packages/JavaScript/JSON.tmLanguage",
 							"tab_size": 2,
@@ -531,7 +639,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -600,7 +708,7 @@
 		[
 			[
 				"",
-				"~/ownCloud/Exfil/Detection/research.sublime-project"
+				"~/Desktop/repos/d3-js-something/log-processing.sublime-project"
 			]
 		],
 		"width": 285.0
