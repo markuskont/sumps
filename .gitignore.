@@ -12,4 +12,4 @@ __pycache__/
 tmp/**/*
 node_modules/**/*
 suricata/rulesets/et/rules/**/*
-node_modules/**/*
+node_modules/*/**/*
