@@ -10,6 +10,5 @@ __pycache__/
 
 ./vagrant/**/*
 tmp/**/*
-node_modules/**/*
-suricata/rulesets/et/rules/**/*
-node_modules/*/**/*
+node_modules/
+suricata/
