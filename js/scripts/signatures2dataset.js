@@ -61,15 +61,14 @@ function getValue(string){
  */
 function addValue(obj,value) {
   if (isArray(obj)) {
-    console.log('array');
-    var arr = obj.push(value);
-    return arr;
+    //arr = obj.push(value);
+    obj.push(value);
+    return obj;
   } else {
-    console.log('not array');
+    //console.log('not array');
     var arr = [];
     arr.push(obj);
     arr.push(value);
-    //console.log(arr);
     return arr;
   }
 }
@@ -89,14 +88,14 @@ function isString(check_var) {
     return(Object.prototype.toString.call( check_var ) === '[object String]');
 }
 
-function parseSequence(opts,stream) {
+function parseSequence(opts) {
 
   json = {};
 
   breakpoint = 0;
-  stream.pause();
+  //stream.pause();
   for (var i = 0; i < opts.length; i++) {
-    if (/;/.test(opts[i])){
+    if ( /;/.test(opts[i]) && !/\\/.test(opts[i - 1]) ){
       // debug
       var pair = opts.substring(breakpoint, i);
 
@@ -105,21 +104,7 @@ function parseSequence(opts,stream) {
       // handle duplicate keys in rules
       // for example, content field can be called multiple times
       if (json[key]){
-        //console.log(key + ':' + value);
-        //console.log(value);
-        //console.log(json[key]);
-        var oldvalue = json[key];
-        //var processed = [];
-        var processed = addValue(oldvalue, value);
-        console.log('key:');
-        console.log(key);
-        console.log('oldvalue:');
-        console.log(oldvalue);
-        console.log('newvalue:');
-        console.log(value);
-        console.log('processed:');
-        console.log(processed);
-        json[key] = processed;
+        json[key] = addValue(json[key], value);
       } else {
         json[key] = value;
       }
@@ -128,7 +113,7 @@ function parseSequence(opts,stream) {
     }
     // console.log(c);
   }
-  stream.resume();
+  //stream.resume();
   //console.log(JSON.stringify(json));
   return json;
 }
@@ -151,10 +136,11 @@ function readFile(path,fileName) {
   var stream = new LineByLineReader(file);
   var regex = new RegExp('^(alert|pass|drop|reject) (\\S+) (\\S+) (\\S+) ([<-]>) (\\S+) (\\S+) \\((.+)\\)');
 
+
   stream.on('line', function(line) {
     if (line.match(regex)!=null) {
 
-      var opts = parseSequence(line.match(regex)[8], stream);
+      var opts = parseSequence(line.match(regex)[8]);
 
       var signature = {
         "file": fileName,
@@ -162,7 +148,7 @@ function readFile(path,fileName) {
         "proto": line.match(regex)[2],
         "src_addr": line.match(regex)[3],
         "src_port": line.match(regex)[4],
-        "direction": line.match(regex)[5],
+        "destination" : line.match(regex)[5],
         "dst_addr": line.match(regex)[6],
         "dst_port": line.match(regex)[7]
       }

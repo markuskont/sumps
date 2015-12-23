@@ -1,0 +1,93 @@
+{
+  "template" : "alert-*",
+  "settings" : {
+      "number_of_shards" : 2,
+      "number_of_replicas": 0,
+      "index.refresh_interval" : "30s"
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : false},
+      "properties" : {
+        "@version": { 
+        "index": "analyzed", 
+        "type": "integer" 
+        },
+        "timestamp": { 
+          "index": "analyzed", 
+          "type": "date" 
+        },
+        "dest_ip" : {
+          "index": "analyzed",
+          "type" : "ip"
+        },
+        "dest_port" : {
+          "index": "analyzed",
+          "type" : "integer"
+        },
+        "event_type" : {
+          "index": "not_analyzed",
+          "type" : "string"
+        },
+        "icmp_code" : {
+          "index": "analyzed",
+          "type" : "integer"
+        },
+        "icmp_type" : {
+          "index": "analyzed",
+          "type" : "integer"
+        },
+        "proto" : {
+          "index": "not_analyzed",
+          "type" : "string"
+        },
+        "src_ip" : {
+          "index": "analyzed",
+          "type" : "ip"
+        },
+        "src_port" : {
+          "index": "analyzed",
+          "type" : "integer"
+        },
+        "alert": {
+          "dynamic": true,
+          "type": "object",
+          "properties": {
+            "action" : {
+              "index" : "not_analyzed",
+              "type" : "string"
+            },
+            "category" : {
+              "index" : "not_analyzed",
+              "type" : "string"
+            },
+            "dst_mask" : {
+              "index" : "analyzed",
+              "type" : "integer"
+            },
+            "gid" : {
+              "index" : "not_analyzed",
+              "type" : "integer"
+            },
+            "rev" : {
+              "index" : "analyzed",
+              "type" : "integer"
+            },
+            "severity" : {
+              "index" : "analyzed",
+              "type" : "integer"
+            },
+            "signature" : {
+              "index" : "not_analyzed",
+              "type" : "string"
+            },
+            "signature_id" : {
+              "index" : "analyzed",
+              "type" : "integer"
+            }
+          }
+        }
+      }
+    }
+  }
+}
