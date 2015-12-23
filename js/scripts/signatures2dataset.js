@@ -135,12 +135,12 @@ function merge_options(obj1,obj2){
 function readFile(path,fileName) {
   var file = path + fileName;
   var stream = new LineByLineReader(file);
-  var regex = new RegExp('^(alert|drop) (\\S+) (\\S+) (\\S+) -> (\\S+) (\\S+) \\((.+)\\)');
+  var regex = new RegExp('^(alert|drop) (\\S+) (\\S+) (\\S+) (<-|<->|->) (\\S+) (\\S+) \\((.+)\\)');
 
   stream.on('line', function(line) {
     if (line.match(regex)!=null) {
 
-      var opts = parseSequence(line.match(regex)[7], stream);
+      var opts = parseSequence(line.match(regex)[8], stream);
 
       var signature = {
         "file": fileName,
@@ -148,8 +148,9 @@ function readFile(path,fileName) {
         "proto": line.match(regex)[2],
         "src_addr": line.match(regex)[3],
         "src_port": line.match(regex)[4],
-        "dst_addr": line.match(regex)[5],
-        "dst_port": line.match(regex)[6]
+        "destination" : line.match(regex)[5],
+        "dst_addr": line.match(regex)[6],
+        "dst_port": line.match(regex)[7]
       }
       // I assume that keys in both hashes are distinct
       var merged = merge_options(signature, opts)
