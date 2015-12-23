@@ -4,5 +4,205 @@
       "number_of_shards" : 2,
       "number_of_replicas": 0,
       "index.refresh_interval" : "30s"
+  },
+  "properties" : {
+    "action" : {
+      "type" : "string"
+    },
+    "app-layer-event" : {
+      "type" : "string"
+    },
+    "asn1" : {
+      "type" : "string"
+    },
+    "byte_extract" : {
+      "type" : "string"
+    },
+    "byte_jump" : {
+      "type" : "string"
+    },
+    "byte_test" : {
+      "type" : "string"
+    },
+    "classtype" : {
+      "type" : "string"
+    },
+    "content" : {
+      "type" : "string"
+    },
+    "decode-event" : {
+      "type" : "string"
+    },
+    "depth" : {
+      "type" : "string"
+    },
+    "detection_filter" : {
+      "type" : "string"
+    },
+    "distance" : {
+      "type" : "string"
+    },
+    "dsize" : {
+      "type" : "string"
+    },
+    "dst_addr" : {
+      "type" : "string"
+    },
+    "dst_port" : {
+      "type" : "string"
+    },
+    "fast_pattern" : {
+      "type" : "boolean"
+    },
+    "file" : {
+      "type" : "string"
+    },
+    "file_data" : {
+      "type" : "boolean"
+    },
+    "flags" : {
+      "type" : "string"
+    },
+    "flow" : {
+      "type" : "string"
+    },
+    "flowbits" : {
+      "type" : "string"
+    },
+    "flowint" : {
+      "type" : "string"
+    },
+    "ftpbounce" : {
+      "type" : "boolean"
+    },
+    "http_client_body" : {
+      "type" : "boolean"
+    },
+    "http_cookie" : {
+      "type" : "boolean"
+    },
+    "http_header" : {
+      "type" : "boolean"
+    },
+    "http_method" : {
+      "type" : "boolean"
+    },
+    "http_raw_header" : {
+      "type" : "boolean"
+    },
+    "http_raw_uri" : {
+      "type" : "boolean"
+    },
+    "http_stat_code" : {
+      "type" : "boolean"
+    },
+    "http_stat_msg" : {
+      "type" : "boolean"
+    },
+    "http_uri" : {
+      "type" : "boolean"
+    },
+    "icmp_id" : {
+      "type" : "string"
+    },
+    "icmpv4-csum" : {
+      "type" : "string"
+    },
+    "icmpv6-csum" : {
+      "type" : "string"
+    },
+    "icode" : {
+      "type" : "string"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "ip_proto" : {
+      "type" : "string"
+    },
+    "ipv4-csum" : {
+      "type" : "string"
+    },
+    "isdataat" : {
+      "type" : "string"
+    },
+    "itype" : {
+      "type" : "string"
+    },
+    "msg" : {
+      "type" : "string"
+    },
+    "nocase" : {
+      "type" : "boolean"
+    },
+    "offset" : {
+      "type" : "string"
+    },
+    "pcre" : {
+      "type" : "string"
+    },
+    "proto" : {
+      "type" : "string"
+    },
+    "rawbytes" : {
+      "type" : "boolean"
+    },
+    "reference" : {
+      "type" : "string"
+    },
+    "rev" : {
+      "type" : "string"
+    },
+    "sid" : {
+      "type" : "string"
+    },
+    "src_addr" : {
+      "type" : "string"
+    },
+    "src_port" : {
+      "type" : "string"
+    },
+    "ssl_state" : {
+      "type" : "string"
+    },
+    "ssl_version" : {
+      "type" : "string"
+    },
+    "stream-event" : {
+      "type" : "string"
+    },
+    "tag" : {
+      "type" : "string"
+    },
+    "tcpv4-csum" : {
+      "type" : "string"
+    },
+    "tcpv6-csum" : {
+      "type" : "string"
+    },
+    "threshold" : {
+      "type" : "string"
+    },
+    "tls.fingerprint" : {
+      "type" : "string"
+    },
+    "udpv4-csum" : {
+      "type" : "string"
+    },
+    "udpv6-csum" : {
+      "type" : "string"
+    },
+    "uricontent" : {
+      "type" : "string"
+    },
+    "urilen" : {
+      "type" : "string"
+    },
+    "window" : {
+      "type" : "string"
+    },
+    "within" : {
+      "type" : "string"
+    }
   }
 }

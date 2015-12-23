@@ -11,9 +11,18 @@ if [ -z `apt-cache policy elasticsearch | grep (none)` ]; then
   sudo apt-get install -y openjdk-7-jre-headless elasticsearch < /dev/null
   
   sudo update-rc.d elasticsearch defaults
-  
+
+  sudo echo 'cluster.name: elasticsearch' >> /etc/elasticsearch/elasticsearch.yml
+  sudo echo 'network.publish_host: 192.168.56.20' >> /etc/elasticsearch/elasticsearch.yml
   sudo echo 'http.cors.allow-origin: "/.*/"' >> /etc/elasticsearch/elasticsearch.yml
   sudo echo 'http.cors.enabled: true' >> /etc/elasticsearch/elasticsearch.yml
+
+  sudo echo 'discovery.zen.ping.multicast.enabled: false' >> /etc/elasticsearch/elasticsearch.yml
+  sudo echo 'discovery.zen.ping.unicast.hosts: [192.168.56.20]' >> /etc/elasticsearch/elasticsearch.yml
+
+  sudo echo 'node.master: true' >> /etc/elasticsearch/elasticsearch.yml
+  sudo echo 'node.data: true' >> /etc/elasticsearch/elasticsearch.yml
+  sudo echo 'http.enabled: true' >> /etc/elasticsearch/elasticsearch.yml
   
   sudo echo 'ES_HEAP_SIZE=2g' >> /etc/default/elasticsearch
   
@@ -40,9 +49,9 @@ if [ -z `apt-cache policy elasticsearch | grep (none)` ]; then
   sudo apt-get install -y openjdk-7-jre-headless elasticsearch < /dev/null
   
   sudo update-rc.d elasticsearch defaults
-  
-  sudo echo 'http.cors.allow-origin: "/.*/"' >> /etc/elasticsearch/elasticsearch.yml
-  sudo echo 'http.cors.enabled: true' >> /etc/elasticsearch/elasticsearch.yml
+
+  sudo echo 'cluster.name: elasticsearch' >> /etc/elasticsearch/elasticsearch.yml
+  sudo echo 'network.publish_host: 192.168.56.21' >> /etc/elasticsearch/elasticsearch.yml
   
   sudo echo 'discovery.zen.ping.multicast.enabled: false' >> /etc/elasticsearch/elasticsearch.yml
   sudo echo 'discovery.zen.ping.unicast.hosts: [192.168.56.20]' >> /etc/elasticsearch/elasticsearch.yml
