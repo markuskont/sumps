@@ -14,39 +14,39 @@
         "type": "integer" 
         },
         "timestamp": { 
-        	"index": "analyzed", 
-        	"type": "date" 
+          "index": "analyzed", 
+          "type": "date" 
         },
         "dest_ip" : {
-        	"index": "analyzed",
+          "index": "analyzed",
           "type" : "ip"
         },
         "dest_port" : {
-        	"index": "analyzed",
+          "index": "analyzed",
           "type" : "integer"
         },
         "event_type" : {
-        	"index": "not_analyzed",
+          "index": "not_analyzed",
           "type" : "string"
         },
         "icmp_code" : {
-        	"index": "analyzed",
+          "index": "analyzed",
           "type" : "integer"
         },
         "icmp_type" : {
-        	"index": "analyzed",
+          "index": "analyzed",
           "type" : "integer"
         },
         "proto" : {
-        	"index": "not_analyzed",
+          "index": "not_analyzed",
           "type" : "string"
         },
         "src_ip" : {
-        	"index": "analyzed",
+          "index": "analyzed",
           "type" : "ip"
         },
         "src_port" : {
-        	"index": "analyzed",
+          "index": "analyzed",
           "type" : "integer"
         },
         "alert": {
@@ -58,31 +58,31 @@
               "type" : "string"
             },
             "category" : {
-            	"index" : "not_analyzed",
+              "index" : "not_analyzed",
               "type" : "string"
             },
             "dst_mask" : {
-            	"index" : "analyzed",
+              "index" : "analyzed",
               "type" : "integer"
             },
             "gid" : {
-            	"index" : "not_analyzed",
+              "index" : "not_analyzed",
               "type" : "integer"
             },
             "rev" : {
-            	"index" : "analyzed",
+              "index" : "analyzed",
               "type" : "integer"
             },
             "severity" : {
-            	"index" : "analyzed",
+              "index" : "analyzed",
               "type" : "integer"
             },
             "signature" : {
-            	"index" : "not_analyzed",
+              "index" : "not_analyzed",
               "type" : "string"
             },
             "signature_id" : {
-            	"index" : "analyzed",
+              "index" : "analyzed",
               "type" : "integer"
             }
           }
