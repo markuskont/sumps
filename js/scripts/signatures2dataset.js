@@ -150,11 +150,12 @@ function readFile(path,fileName) {
         "src_port": line.match(regex)[4],
         "destination" : line.match(regex)[5],
         "dst_addr": line.match(regex)[6],
-        "dst_port": line.match(regex)[7]
+        "dst_port": line.match(regex)[7],
+        "parameters": opts
       }
       // I assume that keys in both hashes are distinct
-      var merged = merge_options(signature, opts)
-      console.log(JSON.stringify(merged));
+      // var merged = merge_options(signature, opts)
+      console.log(JSON.stringify(signature));
     }
   });
 }
