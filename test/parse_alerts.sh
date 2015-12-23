@@ -22,7 +22,7 @@ REGEX="`sed 's/\\./\\\./g' <<< \"$HOST\"` suricata: (\{.+\})$"
 #sed 's/\./\\./g' <<< "hobbit1.spin.sise"
 #echo $REGEX
 
-curl -XDELETE localhost:9200/alert-test4
+curl -XDELETE localhost:9200/$INDEX
 [ -f $FILE ] && pcregrep -o1 "$REGEX" $FILE | nodejs $PWD/js/scripts/pipe.js localhost:9200/$INDEX/$HOST || echo "$FILE does not exist"
 
 [ -f $FILE ] && pcregrep -o1 "$REGEX" $FILE | wc -l || echo "$FILE does not exist"
