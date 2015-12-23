@@ -113,6 +113,7 @@ sudo service suricata status
 sudo service suricata stop
 sudo update-rc.d -f suricata remove
 
+mkdir -p /vagrant/suricata/rulesets/et/
 wget -q http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
 tar -xzf emerging.rules.tar.gz -C /vagrant/suricata/rulesets/et/
 
