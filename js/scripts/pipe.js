@@ -1,3 +1,7 @@
+/**
+ * Courtesy of https://gist.github.com/hillar/4b014ba3abcc07a8c5c9
+*/
+
 var readline = require('readline');
 var http = require('http');
 
