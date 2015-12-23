@@ -31,6 +31,36 @@ curl -XPUT localhost:9200/_template/alert -d @/vagrant/elasticsearch/templates/a
 
 SCRIPT
 
+$elasticsearch_data = <<SCRIPT
+
+if [ -z `apt-cache policy elasticsearch | grep (none)` ]; then
+  sudo wget -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
+  sudo echo 'deb http://packages.elasticsearch.org/elasticsearch/1.7/debian stable main' | tee /etc/apt/sources.list.d/elasticsearch.list
+  sudo apt-get update
+  sudo apt-get install -y openjdk-7-jre-headless elasticsearch < /dev/null
+  
+  sudo update-rc.d elasticsearch defaults
+  
+  sudo echo 'http.cors.allow-origin: "/.*/"' >> /etc/elasticsearch/elasticsearch.yml
+  sudo echo 'http.cors.enabled: true' >> /etc/elasticsearch/elasticsearch.yml
+  
+  sudo echo 'discovery.zen.ping.multicast.enabled: false' >> /etc/elasticsearch/elasticsearch.yml
+  sudo echo 'discovery.zen.ping.unicast.hosts: [192.168.56.20]' >> /etc/elasticsearch/elasticsearch.yml
+
+  sudo echo 'node.master: false' >> /etc/elasticsearch/elasticsearch.yml
+  sudo echo 'node.data: true' >> /etc/elasticsearch/elasticsearch.yml
+  sudo echo 'http.enabled: false' >> /etc/elasticsearch/elasticsearch.yml
+  
+  sudo echo 'ES_HEAP_SIZE=2g' >> /etc/default/elasticsearch
+  
+  sudo service elasticsearch stop
+  sudo service elasticsearch start
+
+  sleep 10
+fi
+
+SCRIPT
+
 $packages = <<SCRIPT
 apt-get update
 apt-get install -y nodejs npm htop < /dev/null
@@ -98,5 +128,12 @@ Vagrant.configure(2) do |config|
       inline: $bro
     es.vm.provision "shell",
       inline: $suricata
+  end
+  config.vm.define "datanode" do |datanode|
+    datanode.vm.hostname = "datanode"
+    datanode.vm.network "private_network", 
+      ip: "192.168.56.21"
+    datanode.vm.provision "shell",
+      inline: $elasticsearch_data
   end
 end
