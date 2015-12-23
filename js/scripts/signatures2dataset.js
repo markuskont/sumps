@@ -69,7 +69,6 @@ function addValue(obj,value) {
     var arr = [];
     arr.push(obj);
     arr.push(value);
-    //console.log(arr);
     return arr;
   }
 }
@@ -89,14 +88,14 @@ function isString(check_var) {
     return(Object.prototype.toString.call( check_var ) === '[object String]');
 }
 
-function parseSequence(opts,stream) {
+function parseSequence(opts) {
 
   json = {};
 
   breakpoint = 0;
-  stream.pause();
+  //stream.pause();
   for (var i = 0; i < opts.length; i++) {
-    if (/;/.test(opts[i])){
+    if ( /;/.test(opts[i]) && !/\\/.test(opts[i - 1]) ){
       // debug
       var pair = opts.substring(breakpoint, i);
 
@@ -114,7 +113,7 @@ function parseSequence(opts,stream) {
     }
     // console.log(c);
   }
-  stream.resume();
+  //stream.resume();
   //console.log(JSON.stringify(json));
   return json;
 }
@@ -140,7 +139,7 @@ function readFile(path,fileName) {
   stream.on('line', function(line) {
     if (line.match(regex)!=null) {
 
-      var opts = parseSequence(line.match(regex)[8], stream);
+      var opts = parseSequence(line.match(regex)[8]);
 
       var signature = {
         "file": fileName,
