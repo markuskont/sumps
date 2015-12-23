@@ -61,11 +61,11 @@ function getValue(string){
  */
 function addValue(obj,value) {
   if (isArray(obj)) {
-    console.log('array');
-    var arr = obj.push(value);
-    return arr;
+    //arr = obj.push(value);
+    obj.push(value);
+    return obj;
   } else {
-    console.log('not array');
+    //console.log('not array');
     var arr = [];
     arr.push(obj);
     arr.push(value);
@@ -105,21 +105,7 @@ function parseSequence(opts,stream) {
       // handle duplicate keys in rules
       // for example, content field can be called multiple times
       if (json[key]){
-        //console.log(key + ':' + value);
-        //console.log(value);
-        //console.log(json[key]);
-        var oldvalue = json[key];
-        //var processed = [];
-        var processed = addValue(oldvalue, value);
-        console.log('key:');
-        console.log(key);
-        console.log('oldvalue:');
-        console.log(oldvalue);
-        console.log('newvalue:');
-        console.log(value);
-        console.log('processed:');
-        console.log(processed);
-        json[key] = processed;
+        json[key] = addValue(json[key], value);
       } else {
         json[key] = value;
       }
