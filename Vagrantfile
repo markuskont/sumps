@@ -76,7 +76,7 @@ apt-get install -y nodejs npm htop < /dev/null
 
 cd /vagrant
 
-npm install byline http
+npm install byline http readline
 SCRIPT
 
 $bro = <<SCRIPT
