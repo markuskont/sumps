@@ -27,6 +27,7 @@ fi
 
 curl -XPUT localhost:9200/_template/bro -d @/vagrant/elasticsearch/templates/bro.json
 curl -XPUT localhost:9200/_template/ruleset -d @/vagrant/elasticsearch/templates/ruleset.json
+curl -XPUT localhost:9200/_template/alert -d @/vagrant/elasticsearch/templates/alert.json
 
 SCRIPT
 
