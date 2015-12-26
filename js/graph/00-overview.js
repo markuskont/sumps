@@ -34,9 +34,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
     var RulesetTypes = response.aggregations.types.buckets;
 
     drawDonutChart(RulesetTypes);
-    //drawBarChart(RulesetTypes);
-    testChart(RulesetTypes);
-    //exampleChart();
+    drawBarChart(RulesetTypes);
   });
 
   var margin = {top: 20, right: 20, bottom: 70, left: 40},
@@ -77,62 +75,36 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
         .text(function (d) { return d.data.key; });
   }
 
-  function testChart(data) {
+  function drawBarChart(data) {
 
-    var yBar = height / data.length;
-    var xBar = d3.scale.linear()
+    var yBar = height / data.length,
+        xBar = d3.scale.linear()
           .domain([0, d3.max(data, function(d){ return d.doc_count; })])
           .range([0, width]);
 
     var barPadding = 2;
 
     var graph = createSvg("#container", height, width);
-    //var attributes = {
-    //  width: function(d) {
-    //    return xBar(d.doc_count);
-    //  },
-    //  height: 
-    //};
+    var color = d3.scale.category20c();
+    var attributes = {
+      width: function(d) {
+        return xBar(d.doc_count);
+      },
+      height: function(d) {
+        return yBar - barPadding;
+      },
+      y: function(d, i){
+        return i * (height / data.length);
+      }
+    };
 
     graph.selectAll('rect')
       .data(data, function (d) {
-        //console.log(d.doc_count);
         return d.doc_count; 
       })
       .enter()
       .append('rect')
-      .attr('width', function(d){
-        return xBar(d.doc_count);
-      })
-      .attr('height', yBar - barPadding)
-      .attr('y', function(d, i) {
-        return i * (height / data.length );
-      }); 
-  }
-
-  function exampleChart() {
-    var data = [4, 8, 15, 16, 23, 42];
-
-    var svgHeight = 100;
-    var svgWidth = 600;
-    var barPadding = 1;
-
-    var graph = createSvg("#container", svgHeight, svgWidth);
-    graph.selectAll('rect')
-      .data(data)
-      .enter()
-      .append('rect')
-      .attr('width', svgWidth / data.length - barPadding)
-      .attr('height', function(d) {
-        return d * 4;
-      })
-      .attr('x', function(d, i) {
-        return i * (svgWidth / data.length);
-      })
-      .attr('y', function(d) {
-        return svgHeight - (d * 4);
-      });
-      //.append("text");
+      .attr(attributes);
   }
 
   function createSvg (parent, height, width) {
