@@ -1,0 +1,47 @@
+/*
+body {
+  font: 14px sans-serif;
+  background: #134E5E;
+  background: -webkit-linear-gradient(to left, #134E5E , #71B280);
+  background: linear-gradient(to left, #134E5E , #71B280);
+}
+*/
+.container {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+.arc path {
+  stroke: #fff; 
+  stroke-width: 3px;
+}
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+.node {
+  font: 10px sans-serif;
+}
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}
+svg {
+  border-style: solid;
+  border-width: 1px;
+}
+
+rect {
+  fill: steelblue;
+}
+

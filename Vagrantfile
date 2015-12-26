@@ -1,6 +1,17 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+$webserver = <<SCRIPT
+
+echo "Installing packages"
+sudo apt-get update
+sudo apt-get install -y apache2 < /dev/null
+
+echo "Reconfiguring default vhost with vagrant root dir (mounted with synced_folder parameter)"
+sudo sed -i 's/\\/var\\/www\\/html/\\/var\\/www\\/d3/g' /etc/apache2/sites-enabled/000-default.conf
+sudo service apache2 restart
+
+SCRIPT
 
 $elasticsearch = <<SCRIPT
 
@@ -113,10 +124,6 @@ sudo service suricata status
 sudo service suricata stop
 sudo update-rc.d -f suricata remove
 
-mkdir -p /vagrant/suricata/rulesets/et/
-wget -q http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
-tar -xzf emerging.rules.tar.gz -C /vagrant/suricata/rulesets/et/
-
 SCRIPT
 
 
@@ -145,5 +152,18 @@ Vagrant.configure(2) do |config|
       ip: "192.168.56.21"
     datanode.vm.provision "shell",
       inline: $elasticsearch_data
+  end
+  config.vm.define "webserver" do |webserver|
+    webserver.vm.hostname = "webserver"
+    webserver.vm.synced_folder ".", "/var/www/d3"
+    config.vm.provider :virtualbox do |box|
+      # nicpromisc2 = promisc on eth1
+      box.customize ["modifyvm", :id, "--memory", "1024"]
+      box.customize ["modifyvm", :id, "--cpus", "2"]
+    end
+    webserver.vm.network "private_network", 
+      ip: "192.168.56.22"
+    webserver.vm.provision "shell",
+      inline: $webserver
   end
 end
