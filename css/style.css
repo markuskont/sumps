@@ -35,6 +35,17 @@ body {
   stroke: #ccc;
   stroke-width: 1.5px;
 }
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
 /*
 .chart div {
   font: 10px sans-serif;

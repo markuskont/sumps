@@ -109,7 +109,11 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
           .domain(dataRange)
           .range([0, 255]);
 
-    var graph = createSvg("#container", height, width);
+    /**
+      * height offset is used as xAxis labels would otherwise be created outside SVG area
+      * this should be fixed with proper margins for each SVG
+      */
+    var graph = createSvg("#container", height + 100, width);
     var attributes = {
       width: function(d) {
         return xBar(d.doc_count);
@@ -124,6 +128,21 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
         return "rgb(0, 0, " + Math.round(colorScale(d.doc_count)) + ")";
       }
     };
+    /**
+      * SVG begins drawing from top left
+      * thus, axis must be pushed downwards with transform
+      * class is an arbitrary identifier, and only used for CSS styling 
+      */
+    var axis_attributes = {
+      class: "axis",
+      transform: function(d){
+        return "translate(0," + height + ")";
+      }
+    };
+
+    var xAxis = d3.svg.axis()
+      .scale(xBar)
+      .orient("bottom");
 
     var bar = graph.selectAll("g")
         .data(data, function(d){
@@ -136,6 +155,11 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       .on("click", function() {
         d3.select(this).attr("fill", "red");
       });
+
+    graph.append("g")
+      .attr(axis_attributes)
+      .call(xAxis);
+
   }
   function drawTree(data) {
 
