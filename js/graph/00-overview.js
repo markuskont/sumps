@@ -115,6 +115,10 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       * this should be fixed with proper margins for each SVG
       */
     var graph = createSvg("#container", height + 100, width);
+    /**
+      * code readability will get out of hand, especially for javascript/d3 n00b
+      * thus, I really like this notation for attr values
+      */
     var attributes = {
       width: function(d) {
         return xBar(d[fieldToVisualize]);
@@ -145,6 +149,14 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       .scale(xBar)
       .orient("bottom");
 
+    /**
+      * here we create a "g" or group element for each datapoint
+      * bars are later added to each group
+      * we could just create rectangles instead, but "rect" element cannot hold any text values
+      * thus, we could not create labels on bars
+      * with grouping, we can simply create distinct "rect" and "text" elements for each datapoint
+      * idea - maybe even create multiple bars from buckets (ES aggregations) and group per parent
+      */
     var bar = graph.selectAll("g")
         .data(data, function(d){
           return d.doc_count;
