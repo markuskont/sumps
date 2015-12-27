@@ -77,15 +77,20 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
 
   function drawBarChart(data) {
 
+    var dataRange = [0, d3.max(data, function(d){ return d.doc_count; })];
+
     var yBar = height / data.length,
         xBar = d3.scale.linear()
-          .domain([0, d3.max(data, function(d){ return d.doc_count; })])
+          .domain(dataRange)
           .range([0, width]);
+        
+    var colorScale = d3.scale.linear()
+          .domain(dataRange)
+          .range([0, 255]);
 
     var barPadding = 2;
 
     var graph = createSvg("#container", height, width);
-    var color = d3.scale.category20c();
     var attributes = {
       width: function(d) {
         return xBar(d.doc_count);
@@ -93,8 +98,11 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       height: function(d) {
         return yBar - barPadding;
       },
-      y: function(d, i){
+      y: function(d, i) {
         return i * (height / data.length);
+      },
+      fill: function(d) {
+        return "rgb(0, 0, " + Math.round(colorScale(d.doc_count)) + ")";
       }
     };
 
