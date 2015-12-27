@@ -103,6 +103,27 @@ function parseSequence(opts) {
   group = 0;
   key = "";
   
+  var contentModifiers = [  
+                            "nocase",
+                            "rawbytes",
+                            "depth",
+                            "offset",
+                            "distance",
+                            "within",
+                            "http_client_body",
+                            "http_cookie",
+                            "http_raw_cookie",
+                            "http_header",
+                            "http_method",
+                            "http_uri",
+                            "http_raw_uri",
+                            "http_stat_code",
+                            "http_stat_msg",
+                            "fast_pattern",
+                            "hash",
+                            "length"
+                          ];
+
   //stream.pause();
   for (var i = 0; i < opts.length; i++) {
     if ( /;/.test(opts[i]) && !/\\/.test(opts[i - 1]) ){
@@ -111,12 +132,12 @@ function parseSequence(opts) {
       param = pair.split(':')[0].trim();
       value = getValue(pair);
 	  
-	  // Increment the parameter number only when the parameter is NOT a content modifer.
-	  if (param != "nocase" && param != "rawbytes" && param != "depth" && param != "offset" && param != "distance" && param != "within" && param != "http_client_body" && param != "http_cookie" && param != "http_raw_cookie" && param != "http_header" && param != "http_raw_header" && param != "http_method" && param != "http_uri" && param != "http_raw_uri" && param != "http_stat_code" && param != "http_stat_msg" && param != "fast_pattern" && param != "hash" && param != "length") {
-		  group++;
-		  key = "p" + group;
-		  json[key] = {};
-	  }
+  	  // Increment the parameter number only when the parameter is NOT a content modifer.
+      if (!contentModifiers.indexOf(param) > -1) {
+        group++;
+        key = "p" + group;
+        json[key] = {};
+      }
 	  
       json[key][param] = value;
       breakpoint = i + 1;
