@@ -41,8 +41,8 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
   client.search(query).then(function (response){
     var RulesetTypes = response.aggregations.types.buckets;
 
-    drawDonutChart(RulesetTypes);
-    drawBarChart(RulesetTypes);
+    //drawDonutChart(RulesetTypes);
+    //drawBarChart(RulesetTypes);
     RulesetTypes.forEach(function(d){
       drawBarChart(d.files.buckets);
       //d.files.buckets.forEach(function(d){
@@ -57,6 +57,10 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
     width = ( window.innerWidth - margin.left - margin.right ) / 2,
     //width = 600,
     height = 300 - margin.top - margin.bottom;
+
+  /**
+   * from ES example
+   */
 
   function drawDonutChart(data){
 
@@ -175,9 +179,9 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
         .attr(node_attributes);
         
     node.append("circle")
-      .attr("r", 3)
+      .attr("r", 3);
+
     node.append("text")
-      //.style("text-anchor", function(d) { return d.children ? "end" : "start"; })
       .text(function(d) {
         return d.key + ": " + d.doc_count;
       });

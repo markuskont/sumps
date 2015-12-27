@@ -12,7 +12,15 @@ curl -XPOST http://192.168.56.20:9200/ruleset/_search?pretty -d '
         files : {
           terms : {
             field : "file",
-            size : "20"
+            size : 20
+          },
+          aggs : {
+            protocols : {
+              terms : {
+                field : "proto",
+                size : 20
+              }
+            }
           }
         }
       }
