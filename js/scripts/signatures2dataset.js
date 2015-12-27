@@ -59,6 +59,7 @@ function getValue(string){
  * @param value
  * @returns array with value added to it
  */
+/** 
 function addValue(obj,value) {
   if (isArray(obj)) {
     //arr = obj.push(value);
@@ -72,6 +73,7 @@ function addValue(obj,value) {
     return arr;
   }
 }
+*/
 
 /**
  * https://www.whatsnoodle.com/check-variable-is-array-in-javascript/
@@ -88,33 +90,48 @@ function isString(check_var) {
     return(Object.prototype.toString.call( check_var ) === '[object String]');
 }
 
+/**
+ * Parse the Rule parameters between {} and group them into arrays.
+ * Related parameters (e.g., content modifiers) are grouped together.
+ * @param opts
+ * @returns Array containing grouped parameters
+ */
 function parseSequence(opts) {
 
   json = {};
-
   breakpoint = 0;
+  group = 0;
+  key = "";
+  
   //stream.pause();
   for (var i = 0; i < opts.length; i++) {
     if ( /;/.test(opts[i]) && !/\\/.test(opts[i - 1]) ){
-      // debug
       var pair = opts.substring(breakpoint, i);
-
-      key = pair.split(':')[0].trim();
+	  
+      param = pair.split(':')[0].trim();
       value = getValue(pair);
-      // handle duplicate keys in rules
-      // for example, content field can be called multiple times
-      if (json[key]){
+	  
+	  // Increment the parameter number only when the parameter is NOT a content modifer.
+	  if (param != "nocase" && param != "rawbytes" && param != "depth" && param != "offset" && param != "distance" && param != "within" && param != "http_client_body" && param != "http_cookie" && param != "http_raw_cookie" && param != "http_header" && param != "http_raw_header" && param != "http_method" && param != "http_uri" && param != "http_raw_uri" && param != "http_stat_code" && param != "http_stat_msg" && param != "fast_pattern" && param != "hash" && param != "length") {
+		  group++;
+		  key = "p" + group;
+		  json[key] = {};
+	  }
+	  
+      json[key][param] = value;
+      breakpoint = i + 1;
+	  
+	  /** old solution **
+	  if (json[key]){
         json[key] = addValue(json[key], value);
       } else {
         json[key] = value;
-      }
-      // console.log(key + ':' + value);
-      breakpoint = i + 1;
-    }
-    // console.log(c);
+      }*/
+	  //console.log(key + ' : ' + param + ' : ' + value); //debug
+	  }
   }
   //stream.resume();
-  //console.log(JSON.stringify(json));
+  //console.log(JSON.stringify(json)); //debug
   return json;
 }
 
