@@ -98,6 +98,14 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
   function drawBarChart(data,fieldToVisualize) {
 
     //var fieldToVisualize = 'doc_count';
+    /**
+      * find the data range
+      * data is actually an array of objects, assuming ES aggregated bucket is passed to @param1
+      * thus custom function must be used inside d3.max method
+      * yes, 0 is hardcoded as current dataset 'doc_count' must be positive integer
+      * our SVG cannot handle negative values regardless
+      * range is then used to scale value to available bar width
+      */
     var dataRange = [0, d3.max(data, function(d){ return d[fieldToVisualize]; })];
     var barPadding = 2;
 
@@ -145,6 +153,12 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       }
     };
 
+    /**
+      * here we define X axis counter
+      * note that "bottom" does not refer to actual placement of axis (sVG still begins drawing from top left)
+      * that will later be set with transform/translate
+      * scale must be set, for obvious reasons
+      */
     var xAxis = d3.svg.axis()
       .scale(xBar)
       .orient("bottom");
@@ -175,6 +189,10 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
         d3.select(this).attr("fill", "red");
       });
 
+    /**
+      * here we actually attach the axis to SVG as new group element
+      * placement is set in attributes
+      */
     graph.append("g")
       .attr(axis_attributes)
       .call(xAxis);
