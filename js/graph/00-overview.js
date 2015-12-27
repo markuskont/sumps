@@ -42,11 +42,11 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
     var RulesetTypes = response.aggregations.types.buckets;
 
     //drawDonutChart(RulesetTypes);
-    //drawBarChart(RulesetTypes);
+    //drawBarChart(RulesetTypes,'doc_count');
     RulesetTypes.forEach(function(d){
-      drawBarChart(d.files.buckets);
+      drawBarChart(d.files.buckets,'doc_count');
       //d.files.buckets.forEach(function(d){
-      //  drawBarChart(d.protocols.buckets);
+      //  drawBarChart(d.protocols.buckets,'doc_count');
       //  console.log(d);
       //});
     });
@@ -95,9 +95,10 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
         .text(function (d) { return d.data.key; });
   }
 
-  function drawBarChart(data) {
+  function drawBarChart(data,fieldToVisualize) {
 
-    var dataRange = [0, d3.max(data, function(d){ return d.doc_count; })];
+    //var fieldToVisualize = 'doc_count';
+    var dataRange = [0, d3.max(data, function(d){ return d[fieldToVisualize]; })];
     var barPadding = 2;
 
     var yBar = height / data.length,
@@ -116,7 +117,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
     var graph = createSvg("#container", height + 100, width);
     var attributes = {
       width: function(d) {
-        return xBar(d.doc_count);
+        return xBar(d[fieldToVisualize]);
       },
       height: function(d) {
         return yBar - barPadding;
@@ -125,7 +126,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
         return i * (height / data.length);
       },
       fill: function(d) {
-        return "rgb(0, 0, " + Math.round(colorScale(d.doc_count)) + ")";
+        return "rgb(0, 0, " + Math.round(colorScale(d[fieldToVisualize])) + ")";
       }
     };
     /**
@@ -150,6 +151,12 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
         })
       .enter().append("g");
 
+    /**
+      * here we create the colored bars
+      * bar length refers to value of @param2, as scaled to SVG width
+      * Idea - call additional functions on mouseover, currently bar is only painted red for test
+      * each click would create a new graph
+      */
     bar.append('rect')
       .attr(attributes)
       .on("click", function() {
