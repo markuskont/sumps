@@ -12,18 +12,21 @@ body {
     width: 100%;
     text-align: center;
 }
+.arc:hover {
+  opacity: 0.5;
+}
 /*
 .arc path {
   stroke: #fff; 
   stroke-width: 3px;
 }
-
+*/
 .node circle {
   fill: #fff;
   stroke: steelblue;
   stroke-width: 1.5px;
 }
-*/
+
 .node {
   font: 10px sans-serif;
 }
@@ -53,3 +56,7 @@ rect {
 }
 
 */
+rect:hover
+{
+  opacity: 0.5;
+}

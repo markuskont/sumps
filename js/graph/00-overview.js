@@ -20,6 +20,14 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
               terms : {
                 field : "file",
                 size : 20
+              },
+              aggs : {
+                protocols : {
+                  terms : {
+                    field : "proto",
+                    size : 20
+                  }
+                }
               }
             }
           }
@@ -35,6 +43,14 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
 
     drawDonutChart(RulesetTypes);
     drawBarChart(RulesetTypes);
+    RulesetTypes.forEach(function(d){
+      drawBarChart(d.files.buckets);
+      //d.files.buckets.forEach(function(d){
+      //  drawBarChart(d.protocols.buckets);
+      //  console.log(d);
+      //});
+    });
+    drawTree(response);
   });
 
   var margin = {top: 20, right: 20, bottom: 70, left: 40},
@@ -78,17 +94,16 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
   function drawBarChart(data) {
 
     var dataRange = [0, d3.max(data, function(d){ return d.doc_count; })];
+    var barPadding = 2;
 
     var yBar = height / data.length,
         xBar = d3.scale.linear()
           .domain(dataRange)
-          .range([0, width]);
+          .range([0, width - barPadding]);
         
     var colorScale = d3.scale.linear()
           .domain(dataRange)
           .range([0, 255]);
-
-    var barPadding = 2;
 
     var graph = createSvg("#container", height, width);
     var attributes = {
@@ -112,11 +127,86 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       })
       .enter()
       .append('rect')
-      .attr(attributes);
+      .attr(attributes)
+      .on("click", function() {
+        d3.select(this).attr("fill", "red");
+      });
+  }
+  function drawTree(data) {
+
+    var treeWidth = 2 * width,
+        treeHeight = 6 * height;
+
+    var transformedData = getChildren(data, 'ruleset');
+
+    var cluster = d3.layout.cluster()
+      .size([treeHeight, treeWidth - 100]);
+
+    // projection translates x to y and vice versa
+    // svg begins drawing from upper left corner
+    // root node would be on upper X axis without projection
+    var diagonal = d3.svg.diagonal()
+      .projection(function(d) { return [d.y, d.x]; });
+
+    var graph = createSvg("#container", treeHeight, treeWidth);
+    var nodes = cluster.nodes(transformedData),
+      links = cluster.links(nodes);
+
+    var node_attributes = {
+      class: "node",
+      transform: function(d){
+        return "translate(" + d.y + "," + d.x + ")";
+      }
+    };
+
+    var link_attributes = {
+      class: "link",
+      d: diagonal
+    };
+
+    var link = graph.selectAll(".link")
+        .data(links)
+      .enter().append("path")
+        .attr(link_attributes);
+
+    var node = graph.selectAll(".node")
+        .data(nodes)
+      .enter().append("g")
+        .attr(node_attributes);
+        
+    node.append("circle")
+      .attr("r", 3)
+    node.append("text")
+      //.style("text-anchor", function(d) { return d.children ? "end" : "start"; })
+      .text(function(d) {
+        return d.key + ": " + d.doc_count;
+      });
+    //d3.select(self.frameElement).style("height", treeHeight + "px");
   }
 
   function createSvg (parent, height, width) {
     return d3.select(parent).append("svg").attr("height", height).attr("width", width);
+  }
+  /**
+   * expected nested array format is: 
+   * { key1: value, keyN: value, children : { key1: value, keyN: value, children: {..} } } 
+   * Explicit keys are used in the example
+   * alternative: 
+   * A. algorithmic conversion (obj2 = obj.aggregations.X.buckets; in recursion)
+   * B. use alternative data(obj, function(D){  return TODO; }), default is { return d.children; } 
+   */
+  function getChildren (obj, rootnode) {
+    root = {};
+    root.key = rootnode;
+    root.children = obj.aggregations.types.buckets;
+    root.children.forEach(function (d) { d.children = d['files'].buckets; });
+    root.children.forEach(function (d) { 
+      d.children.forEach(function (d) { 
+        d.children = d['protocols'].buckets; 
+      });
+    });
+
+    return root;
   }
   
 //
