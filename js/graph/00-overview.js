@@ -125,12 +125,13 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       }
     };
 
-    graph.selectAll('rect')
-      .data(data, function (d) {
-        return d.doc_count; 
-      })
-      .enter()
-      .append('rect')
+    var bar = graph.selectAll("g")
+        .data(data, function(d){
+          return d.doc_count;
+        })
+      .enter().append("g");
+
+    bar.append('rect')
       .attr(attributes)
       .on("click", function() {
         d3.select(this).attr("fill", "red");
