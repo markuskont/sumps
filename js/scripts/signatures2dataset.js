@@ -181,7 +181,7 @@ function merge_options(obj1,obj2){
 function readFile(path,fileName) {
   var file = path + fileName;
   var stream = new LineByLineReader(file);
-  var regex = new RegExp('^(alert|pass|drop|reject) (\\S+) (\\S+) (\\S+) ([<-]>) (\\S+) (\\S+) \\((.+)\\)');
+  var regex = new RegExp('^(alert|pass|drop|sdrop|reject|log|activate|dynamic) (\\S+) (\\S+) (\\S+) ([<-]>) (\\S+) (\\S+) \\((.+)\\)');
 
 
   stream.on('line', function(line) {
