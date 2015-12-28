@@ -16,7 +16,7 @@ fs.readdir(path, function(err, items) {
     // console.log(items[i]);
     // var file = path + items[i];
     if ( filenameEndsWith(items[i],'.rules'))
-    	// console.log(file);
+        // console.log(file);
       readFile(path,items[i])
   }
 });
@@ -126,7 +126,7 @@ function parseSequence(opts) {
                             "fast_pattern",
                             "hash",
                             "length",
-							"isdataat",
+                            "isdataat",
                             "replace",
                             "http_server_body",
                             "http_user_agent"
@@ -136,10 +136,10 @@ function parseSequence(opts) {
   for (var i = 0; i < opts.length; i++) {
     if ( /;/.test(opts[i]) && !/\\/.test(opts[i - 1]) ){
       var pair = opts.substring(breakpoint, i);
-	  
+  
       param = pair.split(':')[0].trim();
       value = getValue(pair);
-	  
+  
       // Increment the parameter value only when the parameter is NOT a content modifer, OR...
       // "isdataat" increments the parameter value when its own "relative" modifier is NOT set.
       if ((contentModifiers.indexOf(param) == -1) || (param == "isdataat" && value.indexOf("relative") == -1)) {
@@ -147,18 +147,18 @@ function parseSequence(opts) {
         key = "p" + group;
         json[key] = {};
       }
-	  
+  
       json[key][param] = value;
       breakpoint = i + 1;
-	  
-	  /** old solution **
+  
+      /** old solution **
       if (json[key]){
         json[key] = addValue(json[key], value);
       } else {
         json[key] = value;
       }*/
-	  //console.log(key + ' : ' + param + ' : ' + value); //debug
-	  }
+      //console.log(key + ' : ' + param + ' : ' + value); //debug
+      }
   }
   //stream.resume();
   //console.log(JSON.stringify(json)); //debug
