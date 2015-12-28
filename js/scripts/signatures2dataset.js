@@ -117,7 +117,7 @@ function parseSequence(opts) {
                             "http_cookie",
                             "http_raw_cookie",
                             "http_header",
-							"http_raw_header",
+                            "http_raw_header",
                             "http_method",
                             "http_uri",
                             "http_raw_uri",
@@ -127,9 +127,9 @@ function parseSequence(opts) {
                             "hash",
                             "length",
 							"isdataat",
-							"replace",
-							"http_server_body",
-							"http_user_agent"
+                            "replace",
+                            "http_server_body",
+                            "http_user_agent"
                           ];
 
   //stream.pause();
@@ -140,9 +140,9 @@ function parseSequence(opts) {
       param = pair.split(':')[0].trim();
       value = getValue(pair);
 	  
-  	  // Increment the parameter value only when the parameter is NOT a content modifer, OR...
-	  // "isdataat" increments the parameter value when its own "relative" modifier is NOT set.
-      if ((contentModifiers.indexOf(param) == -1) || (param == "isdataat" && value.indexOf('relative') == -1)) {
+      // Increment the parameter value only when the parameter is NOT a content modifer, OR...
+      // "isdataat" increments the parameter value when its own "relative" modifier is NOT set.
+      if ((contentModifiers.indexOf(param) == -1) || (param == "isdataat" && value.indexOf("relative") == -1)) {
         group++;
         key = "p" + group;
         json[key] = {};
@@ -152,7 +152,7 @@ function parseSequence(opts) {
       breakpoint = i + 1;
 	  
 	  /** old solution **
-	  if (json[key]){
+      if (json[key]){
         json[key] = addValue(json[key], value);
       } else {
         json[key] = value;
