@@ -74,7 +74,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
     var pie = d3.layout.pie()
         .sort(null)
         .value(function (d) { return d.doc_count; });
-    var svg = d3.select("#container").append("svg")
+    var svg = d3.select("#content").append("svg")
         .attr("width", width)
         .attr("height", height)
         .append("g")
@@ -104,7 +104,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       * thus custom function must be used inside d3.max method
       * yes, 0 is hardcoded as current dataset 'doc_count' must be positive integer
       * our SVG cannot handle negative values regardless
-      * range is then used to scale value to available bar width
+      * range is then used to scale value to available bar
       */
     var dataRange = [0, d3.max(data, function(d){ return d[fieldToVisualize]; })];
     var barPadding = 2;
@@ -122,7 +122,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       * height offset is used as xAxis labels would otherwise be created outside SVG area
       * this should be fixed with proper margins for each SVG
       */
-    var graph = createSvg("#container", height + 100, width);
+    var graph = createSvg("#content", height + 100, width);
     /**
       * code readability will get out of hand, especially for javascript/d3 n00b
       * thus, I really like this notation for attr values
@@ -214,7 +214,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
     var diagonal = d3.svg.diagonal()
       .projection(function(d) { return [d.y, d.x]; });
 
-    var graph = createSvg("#container", treeHeight, treeWidth);
+    var graph = createSvg("#content", treeHeight, treeWidth);
     var nodes = cluster.nodes(transformedData),
       links = cluster.links(nodes);
 

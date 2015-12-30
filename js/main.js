@@ -4,9 +4,14 @@
 require.config({
   paths: {
     d3: 'libs/d3/d3',
-    elasticsearch: 'libs/elasticsearch/elasticsearch'
+    elasticsearch: 'libs/elasticsearch/elasticsearch',
+    config: 'config',
   }
 });
 
 // Here we pull javascript files into scope
-require(['graph/00-overview']);
+require(
+  [
+    'menu'
+  ]
+);
