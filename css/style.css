@@ -62,7 +62,7 @@ nav a {
   padding:0 10px; 
   color:#FFF;
   font-size:10px;
-  line-height: 30px;
+  line-height: 20px;
   text-decoration:none;
 }
 
@@ -77,7 +77,7 @@ nav ul ul {
   display: none;
   position: absolute; 
   /* has to be the same number as the "line-height" of "nav a" */
-  top: 60px; 
+  top: 40px; 
 }
   
 /* Display Dropdowns on Hover */
@@ -85,11 +85,13 @@ nav ul li:hover > ul {
   display:inherit;
 }
   
-/* Fisrt Tier Dropdown */
+/* First Tier Dropdown */
 nav ul ul li {
   float:none;
   display:list-item;
   position: relative;
+  /* white-space: nowrap; */
+  width: 200px;
 }
 
 /* Second, Third and more Tiers 
@@ -98,7 +100,9 @@ nav ul ul li {
 */
 nav ul ul ul li {
   position: relative;
-  top:-60px;
+  top:-40px;
   /* has to be the same number as the "width" of "nav ul ul li" */ 
-  left:170px; 
+  left:200px;
+  white-space: nowrap;
+  width: auto;
 }
