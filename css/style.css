@@ -5,12 +5,13 @@
 
 body {
   background: #212121;
-  font-size:10px;
+  font-size:22px;
   line-height: 32px;
   color: #ffffff;
   word-wrap:break-word !important;
   font-family: 'Open Sans', sans-serif;
   }
+
 
 a {
   color: #FFF;
@@ -20,20 +21,16 @@ a {
   margin: 0 auto;
 }
 
-p {
-  text-align: center;
-}
-
-
 /* Giving a background-color to the nav container. */
-nav { 
+#menu { 
+  margin: 0px 0;
   background-color: #E64A19;
 }
 
 /* Since we'll have the "ul li" "float:left"
  * we need to add a clear after the container. */
 
-nav:after {
+#menu:after {
   content:"";
   display:table;
   clear:both;
@@ -41,7 +38,7 @@ nav:after {
 
 /* Removing padding, margin and "list-style" from the "ul",
  * and adding "position:reltive" */
-nav ul {
+#menu ul {
   padding:0;
   margin:0;
   list-style: none;
@@ -49,7 +46,7 @@ nav ul {
   }
   
 /* Positioning the navigation items inline */
-nav ul li {
+#menu ul li {
   margin: 0px;
   display:inline-block;
   float: left;
@@ -57,7 +54,7 @@ nav ul li {
   }
 
 /* Styling the links */
-nav a {
+#menu a {
   display:block;
   padding:0 10px; 
   color:#FFF;
@@ -67,13 +64,13 @@ nav a {
 }
 
 /* Background color change on Hover */
-nav a:hover { 
+#menu a:hover { 
   background-color: #000000; 
 }
 
 /* Hide Dropdowns by Default
  * and giving it a position of absolute */
-nav ul ul {
+#menu ul ul {
   display: none;
   position: absolute; 
   /* has to be the same number as the "line-height" of "nav a" */
@@ -81,28 +78,30 @@ nav ul ul {
 }
   
 /* Display Dropdowns on Hover */
-nav ul li:hover > ul {
+#menu ul li:hover > ul {
   display:inherit;
 }
   
-/* First Tier Dropdown */
-nav ul ul li {
+/* Fisrt Tier Dropdown */
+#menu ul ul li {
+  width:400px;
   float:none;
   display:list-item;
   position: relative;
-  /* white-space: nowrap; */
-  width: 200px;
 }
 
 /* Second, Third and more Tiers 
  * We move the 2nd and 3rd etc tier dropdowns to the left
  * by the amount of the width of the first tier.
 */
-nav ul ul ul li {
+#menu ul ul ul li {
   position: relative;
   top:-40px;
   /* has to be the same number as the "width" of "nav ul ul li" */ 
-  left:200px;
-  white-space: nowrap;
-  width: auto;
+  left:400px; 
 }
+
+  
+/* Change ' +' in order to change the Dropdown symbol */
+li > a:after { content:  ' +'; }
+li > a:only-child:after { content: ''; }
