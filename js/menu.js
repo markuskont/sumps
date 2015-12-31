@@ -11,21 +11,20 @@ define(['d3', 'elasticsearch', 'config'], function (d3, elasticsearch, config){
       .enter()
       .append("li")
       .append("a")
-      .text(function(d) { return d['key']; })
-      .on("click", click);
-  });
-
-  function click(d) {
-    d3.select("li")
-      .on("click", null)
+      .text(function(d) { return d['key']; });
+      //.on("click", click);
+    d3.selectAll("li")
       .append("ul")
       .selectAll("li")
-      .data(d['count_by_file'].buckets)
+      .data(function (d) {
+        console.log(d['count_by_file'].buckets);
+        return d['count_by_file'].buckets;
+      })
       .enter()
       .append("li")
       .append("a")
-      .text(function(d) {  
-        return d['key']; 
+      .text(function(d){
+        return d['key'];
       });
-  }
+  });
 });

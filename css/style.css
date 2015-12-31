@@ -84,7 +84,8 @@ a {
   
 /* Fisrt Tier Dropdown */
 #menu ul ul li {
-  width:400px;
+  /* width:400px;*/
+  white-space: nowrap;
   float:none;
   display:list-item;
   position: relative;
