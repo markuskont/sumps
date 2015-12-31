@@ -20,7 +20,7 @@ define(['config'], function () {
             count_by_file: {
               terms: {
                 field: "file",
-                size : 20
+                size : 50
               }
             }
           }

@@ -4,8 +4,228 @@
 		"selected_items":
 		[
 			[
-				"ds",
+				"va",
+				"valueToVisalize"
+			],
+			[
+				"ax",
+				"axis_attributes"
+			],
+			[
+				"conte",
+				"contentModifiers"
+			],
+			[
+				"http_s",
+				"http_stat_msg"
+			],
+			[
+				"http_ra",
+				"http_raw_uri"
+			],
+			[
+				"htt",
+				"http_raw_cookie"
+			],
+			[
+				"node",
+				"node_attributes"
+			],
+			[
+				"li",
+				"links"
+			],
+			[
+				"lin",
+				"link_attributes"
+			],
+			[
+				"at",
+				"attr"
+			],
+			[
+				"tra",
+				"transform"
+			],
+			[
+				"tre",
+				"treeWidth"
+			],
+			[
+				"cl",
+				"clicked_attributes"
+			],
+			[
+				"pro",
+				"protocols"
+			],
+			[
+				"dra",
+				"drawBarChart"
+			],
+			[
+				"for",
+				"forEach"
+			],
+			[
+				"get",
+				"getChildren"
+			],
+			[
+				"roo",
+				"rootnode"
+			],
+			[
+				"tree",
+				"treeHeight"
+			],
+			[
+				"att",
+				"attributes"
+			],
+			[
+				"data",
+				"dataRange"
+			],
+			[
+				"y",
+				"yBar"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"cou",
+				"doc_count"
+			],
+			[
+				"bar",
+				"barPadding"
+			],
+			[
+				"x",
+				"xBar"
+			],
+			[
+				"sv",
+				"svgWidth"
+			],
+			[
+				"se",
+				"selectAll"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"draw",
+				"drawBarChart"
+			],
+			[
+				"c",
+				"chart"
+			],
+			[
+				"ru",
+				"RulesetTypes"
+			],
+			[
+				"fi",
+				"filesPerRuleset"
+			],
+			[
+				"re",
+				"regex"
+			],
+			[
+				"in",
+				"integer"
+			],
+			[
+				"read",
+				"readInput"
+			],
+			[
+				"tr",
+				"true"
+			],
+			[
+				"pa",
+				"parse"
+			],
+			[
+				"res",
+				"resp"
+			],
+			[
+				"ch",
+				"chunk"
+			],
+			[
+				"fn",
+				"function"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"bu",
+				"bulk"
+			],
+			[
+				"r",
+				"REGEX"
+			],
+			[
+				"add",
+				"addValue"
+			],
+			[
+				"che",
+				"check_var"
+			],
+			[
+				"is",
+				"isString"
+			],
+			[
+				"ge",
+				"getValue"
+			],
+			[
+				"str",
+				"string"
+			],
+			[
+				"par",
+				"parseSequence"
+			],
+			[
+				"mer",
+				"merge_options"
+			],
+			[
+				"JS",
+				"jsonTEXT"
+			],
+			[
+				"dst",
 				"dst_port"
+			],
+			[
+				"ds",
+				"dst_addr"
+			],
+			[
+				"src",
+				"src_port"
 			],
 			[
 				"sr",
@@ -16,10 +236,6 @@
 				"proto	Prototype"
 			],
 			[
-				"re",
-				"regex"
-			],
-			[
 				"rege",
 				"regex"
 			],
@@ -28,20 +244,8 @@
 				"line"
 			],
 			[
-				"fi",
-				"fileName"
-			],
-			[
 				"file",
 				"fileName"
-			],
-			[
-				"str",
-				"strEndsWith"
-			],
-			[
-				"in",
-				"inline"
 			],
 			[
 				"sh",
@@ -144,10 +348,6 @@
 				"postgresql_portmap"
 			],
 			[
-				"bac",
-				"bacula_job_deploy_pg_dump"
-			],
-			[
 				"bacu",
 				"bacula_job_deploy"
 			],
@@ -160,58 +360,45 @@
 	"buffers":
 	[
 		{
-			"file": ".gitignore.",
+			"contents": "define(['d3', 'elasticsearch'], function (d3, elasticsearch) {\n  var serverOptions = {\n    host: {\n      protocol: 'http',\n      host: '192.168.56.20',\n      port: '9200'\n    }\n  };\n  var query = {\n    index: \"ruleset\",\n    size: 0,\n    body: {\n      aggs : {\n        types : {\n          terms : { \n            field : \"_type\"\n          },\n          aggs : {\n            files : {\n              terms : {\n                field : \"file\",\n                size : 20\n              },\n              aggs : {\n                protocols : {\n                  terms : {\n                    field : \"proto\",\n                    size : 20\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  };\n\n  var client = new elasticsearch.Client(serverOptions);\n\n  client.search(query).then(function (response){\n    var RulesetTypes = response.aggregations.types.buckets;\n\n    //drawDonutChart(RulesetTypes);\n    //drawBarChart(RulesetTypes,'doc_count');\n    RulesetTypes.forEach(function(d){\n      drawBarChart(d.files.buckets,'doc_count');\n      //d.files.buckets.forEach(function(d){\n      //  drawBarChart(d.protocols.buckets,'doc_count');\n      //  console.log(d);\n      //});\n    });\n    drawTree(response);\n  });\n\n  var margin = {top: 20, right: 20, bottom: 70, left: 40},\n    width = ( window.innerWidth - margin.left - margin.right ) / 2,\n    //width = 600,\n    height = 300 - margin.top - margin.bottom;\n\n  /**\n   * from ES example\n   */\n\n  function drawDonutChart(data){\n\n    //var width = window.innerWidth / 3;\n\n    var radius = Math.min(width, height) / 2;\n    var color = ['#ff7f0e', '#d62728', '#2ca02c', '#1f77b4'];\n    var arc = d3.svg.arc()\n        .outerRadius(radius - 100)\n        .innerRadius(radius);\n    var pie = d3.layout.pie()\n        .sort(null)\n        .value(function (d) { return d.doc_count; });\n    var svg = d3.select(\"#container\").append(\"svg\")\n        .attr(\"width\", width)\n        .attr(\"height\", height)\n        .append(\"g\")\n        .attr(\"transform\", \"translate(\" + width/1.4 + \",\" + height/2 + \")\");\n    var g = svg.selectAll(\".arc\")\n        .data(pie(data))\n        .enter()\n        .append(\"g\")\n        .attr(\"class\", \"arc\");\n    g.append(\"path\")\n        .attr(\"d\", arc)\n        .style(\"fill\", function (d, i) { return color[i]; });\n    g.append(\"text\")\n        .attr(\"transform\", function (d) { return \"translate(\" + arc.centroid(d) + \")\"; })\n        .attr(\"dy\", \".35em\")\n        .style(\"text-anchor\", \"middle\")\n        .style(\"fill\", \"white\")\n        .text(function (d) { return d.data.key; });\n  }\n\n  function drawBarChart(data,fieldToVisualize) {\n\n    //var fieldToVisualize = 'doc_count';\n    /**\n      * find the data range\n      * data is actually an array of objects, assuming ES aggregated bucket is passed to @param1\n      * thus custom function must be used inside d3.max method\n      * yes, 0 is hardcoded as current dataset 'doc_count' must be positive integer\n      * our SVG cannot handle negative values regardless\n      * range is then used to scale value to available bar\n      */\n    var dataRange = [0, d3.max(data, function(d){ return d[fieldToVisualize]; })];\n    var barPadding = 2;\n\n    var yBar = height / data.length,\n        xBar = d3.scale.linear()\n          .domain(dataRange)\n          .range([0, width - barPadding]);\n        \n    var colorScale = d3.scale.linear()\n          .domain(dataRange)\n          .range([0, 255]);\n\n    /**\n      * height offset is used as xAxis labels would otherwise be created outside SVG area\n      * this should be fixed with proper margins for each SVG\n      */\n    var graph = createSvg(\"#container\", height + 100, width);\n    /**\n      * code readability will get out of hand, especially for javascript/d3 n00b\n      * thus, I really like this notation for attr values\n      */\n    var attributes = {\n      width: function(d) {\n        return xBar(d[fieldToVisualize]);\n      },\n      height: function(d) {\n        return yBar - barPadding;\n      },\n      y: function(d, i) {\n        return i * (height / data.length);\n      },\n      fill: function(d) {\n        return \"rgb(0, 0, \" + Math.round(colorScale(d[fieldToVisualize])) + \")\";\n      }\n    };\n    /**\n      * SVG begins drawing from top left\n      * thus, axis must be pushed downwards with transform\n      * class is an arbitrary identifier, and only used for CSS styling \n      */\n    var axis_attributes = {\n      class: \"axis\",\n      transform: function(d){\n        return \"translate(0,\" + height + \")\";\n      }\n    };\n\n    /**\n      * here we define X axis counter\n      * note that \"bottom\" does not refer to actual placement of axis (sVG still begins drawing from top left)\n      * that will later be set with transform/translate\n      * scale must be set, for obvious reasons\n      */\n    var xAxis = d3.svg.axis()\n      .scale(xBar)\n      .orient(\"bottom\");\n\n    /**\n      * here we create a \"g\" or group element for each datapoint\n      * bars are later added to each group\n      * we could just create rectangles instead, but \"rect\" element cannot hold any text values\n      * thus, we could not create labels on bars\n      * with grouping, we can simply create distinct \"rect\" and \"text\" elements for each datapoint\n      * idea - maybe even create multiple bars from buckets (ES aggregations) and group per parent\n      */\n    var bar = graph.selectAll(\"g\")\n        .data(data, function(d){\n          return d.doc_count;\n        })\n      .enter().append(\"g\");\n\n    /**\n      * here we create the colored bars\n      * bar length refers to value of @param2, as scaled to SVG width\n      * Idea - call additional functions on mouseover, currently bar is only painted red for test\n      * each click would create a new graph\n      */\n    bar.append('rect')\n      .attr(attributes)\n      .on(\"click\", function() {\n        d3.select(this).attr(\"fill\", \"red\");\n      });\n\n    /**\n      * here we actually attach the axis to SVG as new group element\n      * placement is set in attributes\n      */\n    graph.append(\"g\")\n      .attr(axis_attributes)\n      .call(xAxis);\n\n  }\n  function drawTree(data) {\n\n    var treeWidth = 2 * width,\n        treeHeight = 6 * height;\n\n    var transformedData = getChildren(data, 'ruleset');\n\n    var cluster = d3.layout.cluster()\n      .size([treeHeight, treeWidth - 100]);\n\n    // projection translates x to y and vice versa\n    // svg begins drawing from upper left corner\n    // root node would be on upper X axis without projection\n    var diagonal = d3.svg.diagonal()\n      .projection(function(d) { return [d.y, d.x]; });\n\n    var graph = createSvg(\"#container\", treeHeight, treeWidth);\n    var nodes = cluster.nodes(transformedData),\n      links = cluster.links(nodes);\n\n    var node_attributes = {\n      class: \"node\",\n      transform: function(d){\n        return \"translate(\" + d.y + \",\" + d.x + \")\";\n      }\n    };\n\n    var link_attributes = {\n      class: \"link\",\n      d: diagonal\n    };\n\n    var link = graph.selectAll(\".link\")\n        .data(links)\n      .enter().append(\"path\")\n        .attr(link_attributes);\n\n    var node = graph.selectAll(\".node\")\n        .data(nodes)\n      .enter().append(\"g\")\n        .attr(node_attributes);\n        \n    node.append(\"circle\")\n      .attr(\"r\", 3);\n\n    node.append(\"text\")\n      .text(function(d) {\n        return d.key + \": \" + d.doc_count;\n      });\n    //d3.select(self.frameElement).style(\"height\", treeHeight + \"px\");\n  }\n\n  function createSvg (parent, height, width) {\n    return d3.select(parent).append(\"svg\").attr(\"height\", height).attr(\"width\", width);\n  }\n  /**\n   * expected nested array format is: \n   * { key1: value, keyN: value, children : { key1: value, keyN: value, children: {..} } } \n   * Explicit keys are used in the example\n   * alternative: \n   * A. algorithmic conversion (obj2 = obj.aggregations.X.buckets; in recursion)\n   * B. use alternative data(obj, function(D){  return TODO; }), default is { return d.children; } \n   */\n  function getChildren (obj, rootnode) {\n    root = {};\n    root.key = rootnode;\n    root.children = obj.aggregations.types.buckets;\n    root.children.forEach(function (d) { d.children = d['files'].buckets; });\n    root.children.forEach(function (d) { \n      d.children.forEach(function (d) { \n        d.children = d['protocols'].buckets; \n      });\n    });\n\n    return root;\n  }\n  \n//\n//  console.log(d3.version);\n});",
+			"file": "js/graph/00-overview.js",
+			"file_size": 8364,
+			"file_write_time": 130957300690870938,
 			"settings":
 			{
-				"buffer_size": 217,
-				"line_ending": "Unix",
-				"name": "# Igrnorance is bliss..."
-			}
-		},
-		{
-			"file": "Vagrantfile",
-			"settings":
-			{
-				"buffer_size": 2954,
+				"buffer_size": 8358,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "js/signatures2dataset.js",
+			"file": "css/style.css",
 			"settings":
 			{
-				"buffer_size": 1595,
-				"line_ending": "Unix",
-				"name": "var fs = require('fs');"
-			}
-		},
-		{
-			"file": "/home/markus/Desktop/datasets/examples/json2elastic.js",
-			"settings":
-			{
-				"buffer_size": 5082,
+				"buffer_size": 963,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "{\n  \"template\" : \"bro-*\",\n  \"settings\" : {\n      \"number_of_shards\" : 2,\n      \"number_of_replicas\": 0,\n      \"index.refresh_interval\" : \"30s\"\n  }\n}",
-			"file": "config/elasticsearch-templates/bro.json",
-			"file_size": 148,
-			"file_write_time": 130947481055911126,
+			"file": "js/scripts/signatures2dataset.js",
 			"settings":
 			{
-				"buffer_size": 148,
+				"buffer_size": 5525,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "curl -XPUT localhost:9200/_template/netflow5 -d '\n{\n  \"template\" : \"netflow5-*\",\n  \"settings\" : {\n      \"number_of_shards\" : 2,\n      \"number_of_replicas\": 0,\n      \"index.refresh_interval\" : \"60s\"\n  },\n  \"mappings\" : {\n    \"_default_\" : {\n      \"_all\" : {\"enabled\" : false},\n      \"properties\" : {\n        \"@version\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n        \"@timestamp\": { \"index\": \"analyzed\", \"type\": \"date\" },\n        \"netflow\": {\n          \"dynamic\": true,\n          \"type\": \"object\",\n          \"properties\": {\n            \"version\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"flow_seq_num\": { \"index\": \"not_analyzed\", \"type\": \"long\" },\n            \"engine_type\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"engine_id\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"sampling_algorithm\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"sampling_interval\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"flow_records\": { \"index\": \"not_analyzed\", \"type\": \"integer\" },\n            \"ipv4_src_addr\": { \"index\": \"analyzed\", \"type\": \"ip\" },\n            \"ipv4_dst_addr\": { \"index\": \"analyzed\", \"type\": \"ip\" },\n            \"ipv4_next_hop\": { \"index\": \"analyzed\", \"type\": \"ip\" },\n            \"input_snmp\": { \"index\": \"not_analyzed\", \"type\": \"long\" },\n            \"output_snmp\": { \"index\": \"not_analyzed\", \"type\": \"long\" },\n            \"in_pkts\": { \"index\": \"analyzed\", \"type\": \"long\" },\n            \"in_bytes\": { \"index\": \"analyzed\", \"type\": \"long\" },\n            \"first_switched\": { \"index\": \"not_analyzed\", \"type\": \"date\" },\n            \"last_switched\": { \"index\": \"not_analyzed\", \"type\": \"date\" },\n            \"l4_src_port\": { \"index\": \"analyzed\", \"type\": \"long\" },\n            \"l4_dst_port\": { \"index\": \"analyzed\", \"type\": \"long\" }, \n            \"tcp_flags\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"protocol\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"src_tos\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"src_as\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"dst_as\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"src_mask\": { \"index\": \"analyzed\", \"type\": \"integer\" },\n            \"dst_mask\": { \"index\": \"analyzed\", \"type\": \"integer\" }\n          }\n        }\n      }\n    }\n  }\n}\n'",
-			"file": "config/elasticsearch-templates/example-netfow5.json",
-			"file_size": 2331,
-			"file_write_time": 130947481419911118,
+			"file": "js/scripts/pipe.js",
 			"settings":
 			{
-				"buffer_size": 2331,
+				"buffer_size": 4365,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/es_search.sh",
+			"settings":
+			{
+				"buffer_size": 484,
 				"line_ending": "Unix"
 			}
 		}
@@ -258,12 +445,48 @@
 	"expanded_folders":
 	[
 		"/home/markus/Desktop/repos/sumps",
-		"/home/markus/Desktop/repos/sumps/js"
+		"/home/markus/Desktop/repos/sumps/css",
+		"/home/markus/Desktop/repos/sumps/elasticsearch",
+		"/home/markus/Desktop/repos/sumps/elasticsearch/templates",
+		"/home/markus/Desktop/repos/sumps/js",
+		"/home/markus/Desktop/repos/sumps/js/graph",
+		"/home/markus/Desktop/repos/sumps/js/scripts",
+		"/home/markus/Desktop/repos/sumps/test",
+		"/home/markus/Desktop/repos/sumps/test/d3",
+		"/home/markus/Desktop/repos/sumps/test/d3/radial_tree",
+		"/home/markus/Desktop/repos/sumps/tmp"
 	],
 	"file_history":
 	[
-		"/home/markus/Desktop/datasets/mappings/bro.json",
+		"/home/markus/Desktop/repos/sumps/js/scripts/getChildren.js",
+		"/home/markus/Desktop/repos/sumps/js/main.js",
+		"/home/markus/Desktop/repos/sumps/test/d3/radial_tree/index.html",
+		"/home/markus/Desktop/repos/sumps/test/d3/radial_tree/flare.json",
+		"/home/markus/Desktop/repos/sumps/css/style.css",
+		"/home/markus/Desktop/repos/sumps/test/es_search.sh",
+		"/home/markus/Desktop/repos/sumps/index.html",
+		"/home/markus/Desktop/repos/sumps/Vagrantfile",
+		"/home/markus/Desktop/repos/sumps/test/deploy_rulesets.sh",
+		"/home/markus/Desktop/repos/sumps/js/scripts/signatures2dataset.js",
+		"/home/markus/Desktop/repos/sumps/js/graph/tree.js",
+		"/home/markus/Desktop/repos/sumps/elasticsearch/templates/ruleset.json",
+		"/home/markus/Desktop/repos/sumps/elasticsearch/templates/alert.json",
+		"/home/markus/Desktop/repos/sumps/tmp/notes.txt",
+		"/home/markus/Desktop/repos/sumps/test/parse_alerts.sh",
+		"/home/markus/Desktop/repos/sumps/js/scripts/pipe.js",
+		"/home/markus/Desktop/repos/sumps/tmp/json2elastic.js",
 		"/home/markus/Desktop/datasets/parse.js",
+		"/home/markus/Desktop/repos/sumps/tmp/parse_alerts.sh",
+		"/home/markus/Desktop/repos/gist/json2elastic.js",
+		"/home/markus/Desktop/repos/sumps/config/elasticsearch-templates/bro.json",
+		"/home/markus/Desktop/repos/sumps/.gitignore",
+		"/home/markus/Desktop/repos/sumps/config/elasticsearch-templates/example-netfow5.json",
+		"/home/markus/Desktop/repos/sumps/bash/parse_alerts.sh",
+		"/home/markus/Desktop/datasets/examples/json2elastic.js",
+		"/home/markus/Desktop/repos/sumps/.gitignore.",
+		"/home/markus/Desktop/repos/sumps/js/signatures2dataset.js",
+		"/home/markus/Desktop/repos/sumps/tmp/test.json",
+		"/home/markus/Desktop/datasets/mappings/bro.json",
 		"/home/markus/Desktop/datasets/Vagrantfile",
 		"/home/markus/Desktop/datasets/.gitignore",
 		"/home/markus/Desktop/datasets/netflow-es-template.json",
@@ -362,20 +585,7 @@
 		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/users.yaml",
 		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/gemini.spin.ee.yaml",
 		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/kepler.spin.ee.yaml",
-		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/pleiades2.spin.ee.yaml",
-		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/pleiades3.spin.sise.yaml",
-		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/ocs.spin.ee.yaml",
-		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/environments/devel/modules/bacula/lib/facter/gitlab_installed.rb",
-		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/lupus2.spin.ee.yaml",
-		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/lupus1.spin.sise.yaml",
-		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/ariel.spin.ee.yaml",
-		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/environment/kah.spin.sise.yaml",
-		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hiera.yaml",
-		"/home/markus/Desktop/scripts/extract_v6.sh",
-		"/home/markus/Desktop/netflow.json",
-		"/home/markus/Desktop/elasticsearch/mappings.json",
-		"/home/markus/Desktop/scripts/regex.re",
-		"/home/markus/Desktop/central_logging/powershell/commands.ps1"
+		"/run/user/1000/gvfs/sftp:host=pleiades2.spin.sise,user=root/etc/puppetlabs/code/hieradata/nodes/pleiades2.spin.ee.yaml"
 	],
 	"find":
 	{
@@ -390,9 +600,33 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"axis_attributes",
+			"valueToVisalize",
+			"size",
+			"width",
+			"(?<!chart)width",
+			"datanode",
+			"destination",
+			"proto",
+			"multi_type",
+			"\"fields\" : \\{\\n\\s+.+\\n\\s+\\}",
+			"^\\s+\"name\" : \\{\".+\\n",
+			"\"name\" : \\{\".+\\n",
+			"multi_type",
+			"string\"\\n\\s+\\},",
+			"string\"",
+			"string\"\\n\\s+\\},",
+			"string\"\\n",
+			"string\"",
+			"es-data",
+			"es",
+			"FILE",
+			"passphrase",
+			"console.log",
+			"merge",
 			"conn",
 			"type",
 			"2ela",
@@ -424,6 +658,29 @@
 		"regex": true,
 		"replace_history":
 		[
+			"fieldToVisualize",
+			"chartWidth",
+			"width",
+			"webserver",
+			"string",
+			"\"index\" : \"not_analyzed\"",
+			"",
+			"string",
+			"multi_type\",\\n      \"fields\" : {\\n        \"name\" : {\"type\" : \"string\", \"index\" : \"analyzed\"},\\n        \"raw\" : {\"type\":\"string\", \"index\" : \"not_analyzed\"}\\n      }\\n    },",
+			"string\",\\n      \"index\" : \"not_analyzed\"",
+			"multi_type\",\\n      \"fields\" : {\\n        \"name\" : {\"type\" : \"string\", \"index\" : \"analyzed\"},\\n        \"raw\" : {\"type\":\"string\", \"index\" : \"not_analyzed\"}\\n      }\\n    },",
+			"multi_type\",\\n      \"fields\" : {\\n        \"name\" : {\"type\" : \"string\", \"index\" : \"analyzed\"},\\n        \"raw\" : {\"type\":\"string\", \"index\" : \"not_analyzed\"}\\n      },",
+			"multi_type\",\\n      \"fields\" : {\\n        \"name\" : {\"type\" : \"string\", \"index\" : \"analyzed\"},\\n        \"raw\" : {\"type\":\"string\", \"index\" : \"not_analyzed\"}\\n      },\\n",
+			"multi_type\",\\n      \"fields\" : {\\n        \"name\" : {\"type\" : \"string\", \"index\" : \"analyzed\"},\\n        \"raw\" : {\"type\":\"string\", \"index\" : \"not_analyzed\"}\\n      }\\n",
+			"multi_type\",\\n      \"fields\" : {\\n        \"name\" : {\"type\" : \"string\"}, {\"index\" : \"analyzed\"},\\n        \"raw\" : {\"type\":\"string\"}, {\"index\" : \"not_analyzed\"}\\n      }\\n",
+			"multi_type\",\\n      \"fields\" : {\\n        \"name\" : {\"type\" : string}, {\"index\" : \"analyzed\"},\\n        \"raw\" : {\"type\":\"string\"}, {\"index\" : \"not_analyzed\"}\\n      }\\n",
+			"multi_type\",\\n      \"fields\" : {\\n",
+			"multi_type\",\\n\"      fields\" : {\\n",
+			"multi_type\",\\n\"fields\" : {\\n",
+			"datanode",
+			"es-data",
+			"HOST",
+			"FILE",
 			"tail",
 			"frontend",
 			"es",
@@ -452,119 +709,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": ".gitignore.",
+					"file": "js/graph/00-overview.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 217,
+						"buffer_size": 8358,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								212,
-								212
-							]
-						],
-						"settings":
-						{
-							"WordCountSyntax": "plain text",
-							"auto_name": "# Igrnorance is bliss...",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Vagrantfile",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2954,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1090,
-								1090
-							]
-						],
-						"settings":
-						{
-							"WordCountShouldRun": true,
-							"WordCountSyntax": "ruby",
-							"syntax": "Packages/Ruby/Ruby.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 64.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "js/signatures2dataset.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1595,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								684,
-								692
-							]
-						],
-						"settings":
-						{
-							"WordCountShouldRun": true,
-							"WordCountSyntax": "plain text",
-							"auto_name": "var fs = require('fs');",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 102.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/markus/Desktop/datasets/examples/json2elastic.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5082,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1115,
-								1115
+								736,
+								736
 							]
 						],
 						"settings":
@@ -576,62 +738,33 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 918.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "config/elasticsearch-templates/bro.json",
+					"buffer": 1,
+					"file": "css/style.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 148,
+						"buffer_size": 963,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								148,
-								148
+								693,
+								693
 							]
 						],
 						"settings":
 						{
-							"WordCountSyntax": "plain text",
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "config/elasticsearch-templates/example-netfow5.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2331,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2331,
-								2331
-							]
-						],
-						"settings":
-						{
-							"WordCountSyntax": "plain text",
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"WordCountSyntax": "css",
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -639,7 +772,100 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "js/scripts/signatures2dataset.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5525,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3756,
+								3756
+							]
+						],
+						"settings":
+						{
+							"WordCountSyntax": "javascript",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 969.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "js/scripts/pipe.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4365,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3302,
+								3302
+							]
+						],
+						"settings":
+						{
+							"WordCountSyntax": "javascript",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1785.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "test/es_search.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								452,
+								452
+							]
+						],
+						"settings":
+						{
+							"WordCountSyntax": "shell-unix-generic",
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -708,7 +934,7 @@
 		[
 			[
 				"",
-				"~/Desktop/repos/d3-js-something/log-processing.sublime-project"
+				"~/Desktop/repos/spintek-puppet-remote.sublime-project"
 			]
 		],
 		"width": 285.0

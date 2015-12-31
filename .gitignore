@@ -9,6 +9,6 @@ __pycache__/
 *.sublime-workspace
 
 .vagrant/
-tmp/**/*
+tmp/
 node_modules/
 suricata/
