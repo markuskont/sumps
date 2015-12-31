@@ -16,7 +16,7 @@ fs.readdir(path, function(err, items) {
     // console.log(items[i]);
     // var file = path + items[i];
     if ( filenameEndsWith(items[i],'.rules'))
-    	// console.log(file);
+        // console.log(file);
       readFile(path,items[i])
   }
 });
@@ -103,6 +103,9 @@ function parseSequence(opts) {
   group = 0;
   key = "";
   
+  /**
+  * Suricata-only content modifiers: "replace", "http_server_body", "http_user_agent"
+  */
   var contentModifiers = [  
                             "nocase",
                             "rawbytes",
@@ -114,6 +117,7 @@ function parseSequence(opts) {
                             "http_cookie",
                             "http_raw_cookie",
                             "http_header",
+                            "http_raw_header",
                             "http_method",
                             "http_uri",
                             "http_raw_uri",
@@ -121,35 +125,40 @@ function parseSequence(opts) {
                             "http_stat_msg",
                             "fast_pattern",
                             "hash",
-                            "length"
+                            "length",
+                            "isdataat",
+                            "replace",
+                            "http_server_body",
+                            "http_user_agent"
                           ];
 
   //stream.pause();
   for (var i = 0; i < opts.length; i++) {
     if ( /;/.test(opts[i]) && !/\\/.test(opts[i - 1]) ){
       var pair = opts.substring(breakpoint, i);
-	  
+  
       param = pair.split(':')[0].trim();
       value = getValue(pair);
-	  
-  	  // Increment the parameter number only when the parameter is NOT a content modifer.
-      if (!contentModifiers.indexOf(param) > -1) {
+  
+      // Increment the parameter value only when the parameter is NOT a content modifer, OR...
+      // "isdataat" increments the parameter value when its own "relative" modifier is NOT set.
+      if ((contentModifiers.indexOf(param) == -1) || (param == "isdataat" && value.indexOf("relative") == -1)) {
         group++;
         key = "p" + group;
         json[key] = {};
       }
-	  
+  
       json[key][param] = value;
       breakpoint = i + 1;
-	  
-	  /** old solution **
-	  if (json[key]){
+  
+      /** old solution **
+      if (json[key]){
         json[key] = addValue(json[key], value);
       } else {
         json[key] = value;
       }*/
-	  //console.log(key + ' : ' + param + ' : ' + value); //debug
-	  }
+      //console.log(key + ' : ' + param + ' : ' + value); //debug
+      }
   }
   //stream.resume();
   //console.log(JSON.stringify(json)); //debug
@@ -172,7 +181,7 @@ function merge_options(obj1,obj2){
 function readFile(path,fileName) {
   var file = path + fileName;
   var stream = new LineByLineReader(file);
-  var regex = new RegExp('^(alert|pass|drop|reject) (\\S+) (\\S+) (\\S+) ([<-]>) (\\S+) (\\S+) \\((.+)\\)');
+  var regex = new RegExp('^(alert|pass|drop|sdrop|reject|log|activate|dynamic) (\\S+) (\\S+) (\\S+) ([<-]>) (\\S+) (\\S+) \\((.+)\\)');
 
 
   stream.on('line', function(line) {
