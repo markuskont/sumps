@@ -10,7 +10,9 @@ define(['d3', 'graph', 'transform'], function (d3, graph, transform){
         .enter()
         .append("li")
         .append("a")
-        .text(function(d) { return d['key']; });
+        .text(function(d) { 
+          return d['doc_count'] + " " + d['key']; 
+        });
       /**
         * Populate level 2 list with aggregated results of field "file" by count
         */
@@ -24,7 +26,7 @@ define(['d3', 'graph', 'transform'], function (d3, graph, transform){
         .append("li")
         .append("a")
         .text(function(d){
-          return d['key'];
+          return d['doc_count'] + " " + d['key'];
         })
         .on('click', function(d){
           var aggregated = transform.RetreiveAggregation(d);

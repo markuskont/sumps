@@ -13,6 +13,6 @@ define(['elasticsearch', 'config', 'menu', 'graph'], function (elasticsearch, co
   //  data.forEach(function(d){
   //    var bars = graph.BarChart(d['count_by_file'].buckets, height , width, 'doc_count');
   //  });
-    graph.Tree_old(response, height, width, "#content");
+    graph.Tree(response, height, width, "#content");
   });
 });

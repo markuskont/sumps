@@ -1,27 +1,15 @@
 define(['d3', 'transform', 'config', 'draw'], function (d3, transform, config, draw){
   return {
     Tree: function( data, height, width, element ) {
-      console.log(data);
-      var graph = draw.CreateSVG(element, height, width);
-
-      var cluster = d3.layout.cluster()
-        .size([height, width - 100]);
-
-      var nodes = cluster.nodes(data),
-        links = nodes.links(nodes);
-      console.log(nodes);
-
-      return graph;
-    },
-    Tree_old: function( data, height, width, element ) {
       var transformedData = transform.GetChildren(data, config.ruleset_index);
       var graph = draw.CreateSVG(element, height, width);
   
       var cluster = d3.layout.cluster()
         .size([height, width - 100]);
-//        .children(function(d){
-//          return RetreiveAggregation(d);
-//        });
+        //.children(function(d){
+        //  console.log(RetreiveAggregation(d));
+        //  return RetreiveAggregation(d);
+        //});
   
       // projection translates x to y and vice versa
       // svg begins drawing from upper left corner
@@ -88,7 +76,7 @@ define(['d3', 'transform', 'config', 'draw'], function (d3, transform, config, d
         * height offset is used as xAxis labels would otherwise be created outside SVG area
         * this should be fixed with proper margins for each SVG
         */
-      var graph = draw.CreateSVG("#content", height + 100, width);
+      var graph = draw.CreateSVG("#content", height + 25, width);
       /**
         * code readability will get out of hand, especially for javascript/d3 n00b
         * thus, I really like this notation for attr values

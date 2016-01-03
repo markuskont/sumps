@@ -9,11 +9,9 @@ define([], function (){
      * B. use alternative data(obj, function(D){  return TODO; }), default is { return d.children; } 
      */
     GetChildren: function( obj, rootnode ) {
-      console.log(obj);
       root = {};
       root.key = rootnode;
       root.children = obj.aggregations['count_by_type'].buckets;
-      console.log(root.children);
       root.children.forEach(function (d) { d.children = d['count_by_file'].buckets; });
       root.children.forEach(function (d) { 
         d.children.forEach(function (d) { 
