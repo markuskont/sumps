@@ -29,7 +29,7 @@ define(['d3', 'graph', 'transform'], function (d3, graph, transform){
         .on('click', function(d){
           var aggregated = transform.RetreiveAggregation(d);
           console.log(aggregated);
-          return graph.BarChart(aggregated, 100, 400, 'doc_count'); 
+          return graph.BarChart(aggregated, 100, 500, 'doc_count'); 
         });
     }
   };

@@ -8,59 +8,61 @@ define(['d3', 'transform', 'config', 'draw'], function (d3, transform, config, d
         .size([height, width - 100]);
 
       var nodes = cluster.nodes(data),
-        links = nodes.links(data);
+        links = nodes.links(nodes);
+      console.log(nodes);
 
       return graph;
     },
-//    Tree: function( data, height, width ) {
-//      //var transformedData = transform.GetChildren(data, config.ruleset_index);
-//      console.log(transformedData);
-//      //var graph = draw.CreateSVG("#content", height, width);
-//  
-//      var cluster = d3.layout.cluster()
-//        .size([height, width - 100]);
-//  
-//      // projection translates x to y and vice versa
-//      // svg begins drawing from upper left corner
-//      // root node would be on upper X axis without projection
-//      var diagonal = d3.svg.diagonal()
-//        .projection(function(d) { return [d.y, d.x]; });
-//  
-//      var graph = draw.CreateSVG("#content", height, width);
-//      var nodes = cluster.nodes(transformedData),
-//        links = cluster.links(nodes);
-//  
-//      var node_attributes = {
-//        class: "node",
-//        transform: function(d){
-//          return "translate(" + d.y + "," + d.x + ")";
-//        }
-//      };
-//  
-//      var link_attributes = {
-//        class: "link",
-//        d: diagonal
-//      };
-//  
-//      var link = graph.selectAll(".link")
-//          .data(links)
-//        .enter().append("path")
-//          .attr(link_attributes);
-//  
-//      var node = graph.selectAll(".node")
-//          .data(nodes)
-//        .enter().append("g")
-//          .attr(node_attributes);
-//          
-//      node.append("circle")
-//        .attr("r", 3);
-//  
-//      node.append("text")
-//        .text(function(d) {
-//          return d.key + ": " + d.doc_count;
+    Tree_old: function( data, height, width, element ) {
+      var transformedData = transform.GetChildren(data, config.ruleset_index);
+      var graph = draw.CreateSVG(element, height, width);
+  
+      var cluster = d3.layout.cluster()
+        .size([height, width - 100]);
+//        .children(function(d){
+//          return RetreiveAggregation(d);
 //        });
-//      //d3.select(self.frameElement).style("height", height + "px");
-//    }
+  
+      // projection translates x to y and vice versa
+      // svg begins drawing from upper left corner
+      // root node would be on upper X axis without projection
+      var diagonal = d3.svg.diagonal()
+        .projection(function(d) { return [d.y, d.x]; });
+  
+      var nodes = cluster.nodes(transformedData),
+        links = cluster.links(nodes);
+  
+      var node_attributes = {
+        class: "node",
+        transform: function(d){
+          return "translate(" + d.y + "," + d.x + ")";
+        }
+      };
+  
+      var link_attributes = {
+        class: "link",
+        d: diagonal
+      };
+  
+      var link = graph.selectAll(".link")
+          .data(links)
+        .enter().append("path")
+          .attr(link_attributes);
+  
+      var node = graph.selectAll(".node")
+          .data(nodes)
+        .enter().append("g")
+          .attr(node_attributes);
+          
+      node.append("circle")
+        .attr("r", 3);
+  
+      node.append("text")
+        .text(function(d) {
+          return d.key + ": " + d.doc_count;
+        });
+      //d3.select(self.frameElement).style("height", height + "px");
+    },
     BarChart: function( data, height, width, fieldToVisualize ){
       /**
         * find the data range
@@ -148,10 +150,7 @@ define(['d3', 'transform', 'config', 'draw'], function (d3, transform, config, d
         * each click would create a new graph
         */
       bar.append('rect')
-        .attr(attributes)
-        .on("click", function() {
-          d3.select(this).attr("fill", "red");
-        });
+        .attr(attributes);
   
       /**
         * here we actually attach the axis to SVG as new group element
