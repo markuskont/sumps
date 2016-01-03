@@ -21,6 +21,14 @@ define(['config'], function () {
               terms: {
                 field: "file",
                 size : 50
+              },
+              aggs: {
+                count_by_proto: {
+                  terms: {
+                    field: "proto",
+                    size: 10
+                  }
+                }
               }
             }
           }

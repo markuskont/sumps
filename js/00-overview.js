@@ -1,4 +1,4 @@
-define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
+define(['d3', 'elasticsearch', 'draw', 'transform', 'graph'], function (d3, elasticsearch, draw, transform, graph) {
   var serverOptions = {
     host: {
       protocol: 'http',
@@ -50,7 +50,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       //  console.log(d);
       //});
     });
-    drawTree(response);
+    drawTree(response, height, width);
   });
 
   var margin = {top: 20, right: 20, bottom: 70, left: 40},
@@ -122,7 +122,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
       * height offset is used as xAxis labels would otherwise be created outside SVG area
       * this should be fixed with proper margins for each SVG
       */
-    var graph = createSvg("#content", height + 100, width);
+    var graph = draw.CreateSVG("#content", height + 100, width);
     /**
       * code readability will get out of hand, especially for javascript/d3 n00b
       * thus, I really like this notation for attr values
@@ -203,7 +203,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
     var treeWidth = 2 * width,
         treeHeight = 6 * height;
 
-    var transformedData = getChildren(data, 'ruleset');
+    var transformedData = transform.GetChildren(data, 'ruleset');
 
     var cluster = d3.layout.cluster()
       .size([treeHeight, treeWidth - 100]);
@@ -214,7 +214,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
     var diagonal = d3.svg.diagonal()
       .projection(function(d) { return [d.y, d.x]; });
 
-    var graph = createSvg("#content", treeHeight, treeWidth);
+    var graph = draw.CreateSVG("#content", treeHeight, treeWidth);
     var nodes = cluster.nodes(transformedData),
       links = cluster.links(nodes);
 
@@ -248,33 +248,7 @@ define(['d3', 'elasticsearch'], function (d3, elasticsearch) {
         return d.key + ": " + d.doc_count;
       });
     //d3.select(self.frameElement).style("height", treeHeight + "px");
-  }
-
-  function createSvg (parent, height, width) {
-    return d3.select(parent).append("svg").attr("height", height).attr("width", width);
-  }
-  /**
-   * expected nested array format is: 
-   * { key1: value, keyN: value, children : { key1: value, keyN: value, children: {..} } } 
-   * Explicit keys are used in the example
-   * alternative: 
-   * A. algorithmic conversion (obj2 = obj.aggregations.X.buckets; in recursion)
-   * B. use alternative data(obj, function(D){  return TODO; }), default is { return d.children; } 
-   */
-  function getChildren (obj, rootnode) {
-    root = {};
-    root.key = rootnode;
-    root.children = obj.aggregations.types.buckets;
-    root.children.forEach(function (d) { d.children = d['files'].buckets; });
-    root.children.forEach(function (d) { 
-      d.children.forEach(function (d) { 
-        d.children = d['protocols'].buckets; 
-      });
-    });
-
-    return root;
-  }
-  
+  }  
 //
 //  console.log(d3.version);
 });

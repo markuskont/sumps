@@ -6,12 +6,16 @@ require.config({
     d3: 'libs/d3/d3',
     elasticsearch: 'libs/elasticsearch/elasticsearch',
     config: 'config',
+    menu: 'menu',
+    draw: 'draw',
+    graph: 'graph',
+    transform: 'transform',
   }
 });
 
 // Here we pull javascript files into scope
 require(
   [
-    'menu'
+    'query'
   ]
 );
