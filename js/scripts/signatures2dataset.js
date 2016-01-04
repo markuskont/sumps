@@ -127,7 +127,6 @@ function parseSequence(opts) {
                             "fast_pattern",
                             "hash",
                             "length",
-                            "isdataat",
                             "replace",
                             "http_server_body",
                             "http_user_agent"
@@ -141,9 +140,8 @@ function parseSequence(opts) {
       param = pair.split(':')[0].trim();
       value = getValue(pair);
   
-      // Increment the parameter value only when the parameter is NOT a content modifer, OR...
-      // "isdataat" increments the parameter value when its own "relative" modifier is NOT set.
-      if ((contentModifiers.indexOf(param) == -1) || (param == "isdataat" && value.indexOf("relative") == -1)) {
+      // Increment the parameter value only when the parameter is NOT a content modifer
+      if (contentModifiers.indexOf(param) == -1) {
         group++;
         key = "p" + group;
         obj = {};
