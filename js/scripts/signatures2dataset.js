@@ -98,7 +98,8 @@ function isString(check_var) {
  */
 function parseSequence(opts) {
 
-  json = {};
+  var obj = {};
+  nested = [];
   breakpoint = 0;
   group = 0;
   key = "";
@@ -145,24 +146,17 @@ function parseSequence(opts) {
       if ((contentModifiers.indexOf(param) == -1) || (param == "isdataat" && value.indexOf("relative") == -1)) {
         group++;
         key = "p" + group;
-        json[key] = {};
+        obj = {};
       }
   
-      json[key][param] = value;
+      obj[param] = value;
+      nested.push(obj);
       breakpoint = i + 1;
-  
-      /** old solution **
-      if (json[key]){
-        json[key] = addValue(json[key], value);
-      } else {
-        json[key] = value;
-      }*/
-      //console.log(key + ' : ' + param + ' : ' + value); //debug
-      }
+    }
   }
   //stream.resume();
   //console.log(JSON.stringify(json)); //debug
-  return json;
+  return nested;
 }
 
 /**
