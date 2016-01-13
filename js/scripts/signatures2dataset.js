@@ -14,10 +14,38 @@ var expand = 0;
 var ipvars = [];
 var portvars = {};
 
-// Parse conf for variables
+// Parse conf for expanding variables
 if (process.argv[3]) {
+  parseConf(process.argv[3])
+}
+
+fs.readdir(path, function(err, items) {
+  // console.log(items);
+  for (var i=0; i<items.length; i++) {
+    // console.log(items[i]);
+    // var file = path + items[i];
+    if ( filenameEndsWith(items[i],'\.rules'))
+        // console.log(file);
+      readFile(path,items[i])
+  }
+});
+
+function filenameEndsWith(str,suffix) {
+  var reguex= new RegExp(suffix+'$');
+
+  if (str.match(reguex)!=null)
+    return true;
+
+  return false;
+}
+
+/**
+ * Parses the IP and Port variables from conf files.
+ * Populates the global 'ipvars' and 'portvars' variables.
+ * @param path to conf file
+ */
+function parseConf (file) {
     expand = 1;
-    var file = process.argv[3];
     
     //If the file is not YAML (Suricata conf), then it will look for Snort specific keywords, or else it will fail.
     var content = fs.readFileSync(file, 'utf8');
@@ -46,27 +74,38 @@ if (process.argv[3]) {
       process.exit(-2);
     }
     //console.log(ipvars + portvars); //debug
-    
 }
 
-fs.readdir(path, function(err, items) {
-  // console.log(items);
-  for (var i=0; i<items.length; i++) {
-    // console.log(items[i]);
-    // var file = path + items[i];
-    if ( filenameEndsWith(items[i],'\.rules'))
-        // console.log(file);
-      readFile(path,items[i])
-  }
-});
+/**
+ * Expands variables if the provided input string contains them.
+ * @param type - type of variable (IP or port)
+ * @param check_var - variable to check and expand
+ * @returns Expanded check_var value
+ */
+function expandVars(type, check_var) {
+    if (expand == 0)
+        return check_var;
+      
+    //console.log("IPUT: " + check_var); //debug
+    check_var = check_var.toString();
+    var pattern = new RegExp(/\$([A-Za-z0-9_-]+)/g);
+    var found = check_var.match(pattern);
+    //console.log("FOUND: " + found); //debug
 
-function filenameEndsWith(str,suffix) {
-  var reguex= new RegExp(suffix+'$');
-
-  if (str.match(reguex)!=null)
-    return true;
-
-  return false;
+    if (found) {
+      for (var i=0; i < found.length; i++) {
+        match = found[i];
+        if (type == 'addr') {
+                    check_var = check_var.replace(match, ipvars[match.substr(1)]);
+        } else {
+                    check_var = check_var.replace(match, portvars[match.substr(1)]);
+        }
+      }
+      // Check if the new value was perhaps still a variable containing a $
+      check_var = expandVars(type, check_var);
+    }
+    //console.log("OPUT: " + check_var); //debug
+    return check_var;
 }
 
 /**
@@ -104,32 +143,6 @@ function isArray(check_var) {
  */
 function isString(check_var) {
     return(Object.prototype.toString.call( check_var ) === '[object String]');
-}
-
-function expandVars(type, check_var) {
-    if (expand == 0)
-        return check_var;
-      
-    //console.log("IPUT: " + check_var); //debug
-    check_var = check_var.toString();
-    var pattern = new RegExp(/\$([A-Za-z0-9_-]+)/g);
-    var found = check_var.match(pattern);
-    //console.log("FOUND: " + found); //debug
-
-    if (found) {
-      for (var i=0; i < found.length; i++) {
-        match = found[i];
-        if (type == 'addr') {
-                    check_var = check_var.replace(match, ipvars[match.substr(1)]);
-        } else {
-                    check_var = check_var.replace(match, portvars[match.substr(1)]);
-        }
-      }
-      // Check if the new value was perhaps still a variable containing a $
-      check_var = expandVars(type, check_var);
-    }
-    //console.log("OPUT: " + check_var); //debug
-    return check_var;
 }
 
 /**
